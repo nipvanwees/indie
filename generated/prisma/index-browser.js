@@ -141,7 +141,8 @@ exports.Prisma.SessionScalarFieldEnum = {
   updatedAt: 'updatedAt',
   ipAddress: 'ipAddress',
   userAgent: 'userAgent',
-  userId: 'userId'
+  userId: 'userId',
+  locationsId: 'locationsId'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -169,6 +170,152 @@ exports.Prisma.VerificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.LocationsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  public: 'public',
+  userId: 'userId'
+};
+
+exports.Prisma.WorkoutPlanningScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  includeTime: 'includeTime',
+  locationId: 'locationId',
+  workoutPlanId: 'workoutPlanId'
+};
+
+exports.Prisma.WorkoutPlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  notes: 'notes',
+  completed: 'completed',
+  date: 'date',
+  includeTime: 'includeTime',
+  locationId: 'locationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+};
+
+exports.Prisma.WorkoutBlockScalarFieldEnum = {
+  id: 'id',
+  completed: 'completed',
+  name: 'name',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  workoutPlanId: 'workoutPlanId',
+  style: 'style',
+  blockPurpose: 'blockPurpose',
+  rounds: 'rounds',
+  maxDurationMin: 'maxDurationMin',
+  specifyRepsPerRound: 'specifyRepsPerRound'
+};
+
+exports.Prisma.ExercisePlanningScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  blockId: 'blockId',
+  blockOrder: 'blockOrder',
+  exerciseId: 'exerciseId',
+  minReps: 'minReps',
+  maxReps: 'maxReps',
+  maxEffort: 'maxEffort',
+  timeStyle: 'timeStyle',
+  unilateralExecution: 'unilateralExecution',
+  useTempo: 'useTempo',
+  tempoEccentric: 'tempoEccentric',
+  tempoConcentric: 'tempoConcentric',
+  tempoIsometricTop: 'tempoIsometricTop',
+  tempoIsometricBottom: 'tempoIsometricBottom',
+  useAsBuyIn: 'useAsBuyIn',
+  useRx: 'useRx',
+  rxDouble: 'rxDouble',
+  rxM: 'rxM',
+  rxF: 'rxF',
+  regressionId: 'regressionId',
+  progressionId: 'progressionId',
+  notes: 'notes',
+  repType: 'repType',
+  repStyle: 'repStyle'
+};
+
+exports.Prisma.RoundsScalarFieldEnum = {
+  id: 'id',
+  exercisePlanningId: 'exercisePlanningId',
+  min: 'min',
+  max: 'max',
+  time: 'time',
+  rpe: 'rpe',
+  notes: 'notes',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PlanningAlternativeScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  type: 'type',
+  planningId: 'planningId',
+  exerciseId: 'exerciseId',
+  notes: 'notes',
+  order: 'order'
+};
+
+exports.Prisma.ExerciseScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  unilateral: 'unilateral',
+  bodyweight: 'bodyweight',
+  exernalWeight: 'exernalWeight',
+  createdById: 'createdById'
+};
+
+exports.Prisma.LogScalarFieldEnum = {
+  id: 'id',
+  exerciseId: 'exerciseId',
+  userId: 'userId',
+  sessionId: 'sessionId',
+  date: 'date',
+  dateString: 'dateString',
+  bodyweight: 'bodyweight',
+  category: 'category',
+  repType: 'repType',
+  reps: 'reps',
+  time: 'time',
+  distance: 'distance',
+  calories: 'calories',
+  weight: 'weight',
+  rpe: 'rpe',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  trainingSessionId: 'trainingSessionId'
+};
+
+exports.Prisma.TrainingSessionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  date: 'date',
+  includeTime: 'includeTime',
+  notes: 'notes',
+  completed: 'completed',
+  userId: 'userId',
+  locationId: 'locationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -191,7 +338,8 @@ exports.Prisma.SessionOrderByRelevanceFieldEnum = {
   token: 'token',
   ipAddress: 'ipAddress',
   userAgent: 'userAgent',
-  userId: 'userId'
+  userId: 'userId',
+  locationsId: 'locationsId'
 };
 
 exports.Prisma.AccountOrderByRelevanceFieldEnum = {
@@ -212,12 +360,155 @@ exports.Prisma.VerificationOrderByRelevanceFieldEnum = {
   value: 'value'
 };
 
+exports.Prisma.LocationsOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  userId: 'userId'
+};
+
+exports.Prisma.WorkoutPlanningOrderByRelevanceFieldEnum = {
+  id: 'id',
+  locationId: 'locationId',
+  workoutPlanId: 'workoutPlanId'
+};
+
+exports.Prisma.WorkoutPlanOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  notes: 'notes',
+  locationId: 'locationId',
+  userId: 'userId'
+};
+
+exports.Prisma.WorkoutBlockOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  notes: 'notes',
+  workoutPlanId: 'workoutPlanId'
+};
+
+exports.Prisma.ExercisePlanningOrderByRelevanceFieldEnum = {
+  id: 'id',
+  blockId: 'blockId',
+  exerciseId: 'exerciseId',
+  notes: 'notes',
+  repStyle: 'repStyle'
+};
+
+exports.Prisma.RoundsOrderByRelevanceFieldEnum = {
+  id: 'id',
+  exercisePlanningId: 'exercisePlanningId',
+  notes: 'notes'
+};
+
+exports.Prisma.PlanningAlternativeOrderByRelevanceFieldEnum = {
+  id: 'id',
+  planningId: 'planningId',
+  exerciseId: 'exerciseId',
+  notes: 'notes'
+};
+
+exports.Prisma.ExerciseOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdById: 'createdById'
+};
+
+exports.Prisma.LogOrderByRelevanceFieldEnum = {
+  id: 'id',
+  exerciseId: 'exerciseId',
+  userId: 'userId',
+  sessionId: 'sessionId',
+  dateString: 'dateString',
+  notes: 'notes',
+  trainingSessionId: 'trainingSessionId'
+};
+
+exports.Prisma.TrainingSessionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  notes: 'notes',
+  userId: 'userId',
+  locationId: 'locationId'
+};
+exports.WorkoutType = exports.$Enums.WorkoutType = {
+  OPEN: 'OPEN',
+  MOBILITY: 'MOBILITY',
+  GYMNASTICS: 'GYMNASTICS',
+  CALISTHENICS: 'CALISTHENICS',
+  CROSSFIT: 'CROSSFIT',
+  HYROX: 'HYROX',
+  YOGA: 'YOGA',
+  STRENGTH: 'STRENGTH',
+  HIIT: 'HIIT'
+};
+
+exports.BlockStyle = exports.$Enums.BlockStyle = {
+  TOPDOWN: 'TOPDOWN',
+  ROUNDS: 'ROUNDS',
+  AMRAP: 'AMRAP',
+  EMOM: 'EMOM',
+  EVERYFOR: 'EVERYFOR',
+  FORTIME: 'FORTIME'
+};
+
+exports.BlockPurpose = exports.$Enums.BlockPurpose = {
+  WARMUP: 'WARMUP',
+  INTENSITY: 'INTENSITY',
+  COOLDOWN: 'COOLDOWN'
+};
+
+exports.TimeStyle = exports.$Enums.TimeStyle = {
+  REPS: 'REPS',
+  ISO: 'ISO'
+};
+
+exports.UnilateralExecution = exports.$Enums.UnilateralExecution = {
+  NONE: 'NONE',
+  ALTERNATING: 'ALTERNATING',
+  SEPERATED: 'SEPERATED'
+};
+
+exports.RepStyle = exports.$Enums.RepStyle = {
+  REPS: 'REPS',
+  TIME: 'TIME',
+  METERS: 'METERS',
+  CALORIES: 'CALORIES'
+};
+
+exports.AlternativeType = exports.$Enums.AlternativeType = {
+  REGRESSION: 'REGRESSION',
+  ALTERNATIVE: 'ALTERNATIVE',
+  PROGRESSION: 'PROGRESSION'
+};
+
+exports.Unilateral = exports.$Enums.Unilateral = {
+  NO: 'NO',
+  OPTIONAL: 'OPTIONAL',
+  YES: 'YES'
+};
+
+exports.ActivityCategory = exports.$Enums.ActivityCategory = {
+  CARDIO: 'CARDIO',
+  WEIGHTS: 'WEIGHTS',
+  BODYWEIGHT: 'BODYWEIGHT'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  Locations: 'Locations',
+  WorkoutPlanning: 'WorkoutPlanning',
+  WorkoutPlan: 'WorkoutPlan',
+  WorkoutBlock: 'WorkoutBlock',
+  ExercisePlanning: 'ExercisePlanning',
+  Rounds: 'Rounds',
+  PlanningAlternative: 'PlanningAlternative',
+  Exercise: 'Exercise',
+  Log: 'Log',
+  TrainingSession: 'TrainingSession'
 };
 
 /**

@@ -26,23 +26,31 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
-  athlete Boolean @default(true)
-  trainer Boolean @default(true)
+  athlete          Boolean           @default(true)
+  trainer          Boolean           @default(true)
+  locations        Locations[]
+  workoutPlans     WorkoutPlan[]
+  exercises        Exercise[]
+  logs             Log[]
+  trainingSessions TrainingSession[]
 
   @@unique([email])
   @@map("user")
 }
 
 model Session {
-  id        String   @id
-  expiresAt DateTime
-  token     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  ipAddress String? //@db.Text
-  userAgent String? //@db.Text
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String     @id
+  expiresAt   DateTime
+  token       String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  ipAddress   String? //@db.Text
+  userAgent   String? //@db.Text
+  userId      String
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  locations   Locations? @relation(fields: [locationsId], references: [id])
+  locationsId String?
+  logs        Log[]
 
   @@unique([token])
   @@map("session")
@@ -76,4 +84,315 @@ model Verification {
   updatedAt  DateTime @default(now()) @updatedAt
 
   @@map("verification")
+}
+
+enum Unilateral {
+  NO
+  OPTIONAL
+  YES
+}
+
+enum Execution {
+  FULLROM
+  LENGTHENEDPARTIAL
+  SHORTENEDPARTIAL
+  LENGTHENEDISO
+  SHORTENEDISO
+}
+
+model Locations {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  public Boolean
+
+  user             User?             @relation(fields: [userId], references: [id])
+  userId           String?
+  WorkoutPlan      WorkoutPlan[]
+  WorkoutPlanning  WorkoutPlanning[]
+  Session          Session[]
+  trainingSessions TrainingSession[]
+}
+
+enum WorkoutType {
+  OPEN
+  MOBILITY
+  GYMNASTICS
+  CALISTHENICS
+  CROSSFIT
+  HYROX
+  YOGA
+  STRENGTH
+  HIIT
+}
+
+model WorkoutPlanning {
+  id String @id @default(cuid())
+
+  date        DateTime
+  includeTime Boolean  @default(false)
+
+  location   Locations? @relation(fields: [locationId], references: [id])
+  locationId String?
+
+  workoutPlanId String
+  workoutPlan   WorkoutPlan @relation(fields: [workoutPlanId], references: [id])
+}
+
+model WorkoutPlan {
+  id   String @id @default(cuid())
+  name String
+
+  type  WorkoutType @default(OPEN)
+  notes String?     @db.Text
+
+  completed Boolean @default(false)
+
+  date        DateTime?
+  includeTime Boolean   @default(false)
+
+  location   Locations? @relation(fields: [locationId], references: [id])
+  locationId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user            User?             @relation(fields: [userId], references: [id])
+  userId          String?
+  WorkoutBlock    WorkoutBlock[]
+  WorkoutPlanning WorkoutPlanning[]
+}
+
+enum BlockStyle {
+  TOPDOWN
+  ROUNDS
+  AMRAP
+  EMOM
+  EVERYFOR
+  FORTIME
+}
+
+enum BlockPurpose {
+  WARMUP
+  INTENSITY
+  COOLDOWN
+}
+
+model WorkoutBlock {
+  id String @id @default(cuid())
+
+  completed Boolean @default(false)
+  name      String
+  notes     String  @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  workoutPlan   WorkoutPlan @relation(fields: [workoutPlanId], references: [id])
+  workoutPlanId String
+
+  style        BlockStyle   @default(ROUNDS)
+  blockPurpose BlockPurpose @default(INTENSITY)
+
+  rounds         Int? @default(1)
+  maxDurationMin Int? @default(0)
+
+  specifyRepsPerRound Boolean @default(false)
+
+  exercisePlanning ExercisePlanning[]
+}
+
+enum TimeStyle {
+  REPS
+  ISO
+}
+
+enum UnilateralExecution {
+  NONE
+  ALTERNATING
+  SEPERATED
+}
+
+enum RepStyle {
+  REPS
+  TIME
+  METERS
+  CALORIES
+}
+
+enum ActivityCategory {
+  CARDIO
+  WEIGHTS
+  BODYWEIGHT
+}
+
+model ExercisePlanning {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  block      WorkoutBlock? @relation(fields: [blockId], references: [id])
+  blockId    String?
+  blockOrder Int           @default(1)
+
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId String
+
+  minReps   Int?
+  maxReps   Int?
+  maxEffort Boolean? @default(false)
+
+  timeStyle           TimeStyle?           @default(REPS)
+  unilateralExecution UnilateralExecution? @default(NONE)
+
+  useTempo             Boolean @default(false)
+  tempoEccentric       Int?
+  tempoConcentric      Int?
+  tempoIsometricTop    Int?
+  tempoIsometricBottom Int?
+
+  useAsBuyIn Boolean @default(false)
+
+  useRx    Boolean @default(false)
+  rxDouble Boolean @default(false)
+  rxM      Int?
+  rxF      Int?
+
+  regressionId  Int?
+  progressionId Int?
+
+  notes String?
+
+  repType RepStyle @default(REPS)
+
+  repStyle            String?               @default("reps")
+  planningAlternative PlanningAlternative[]
+  rounds              Rounds[]
+}
+
+model Rounds {
+  id String @id @default(cuid())
+
+  exercisePlanning   ExercisePlanning @relation(fields: [exercisePlanningId], references: [id])
+  exercisePlanningId String
+
+  min   Int?
+  max   Int?
+  time  Int?
+  rpe   Int?
+  notes String? @default("")
+
+  order Int @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum AlternativeType {
+  REGRESSION
+  ALTERNATIVE
+  PROGRESSION
+}
+
+model PlanningAlternative {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  type AlternativeType @default(REGRESSION)
+
+  planningId String
+  exerciseId String
+
+  notes String?
+  order Int     @default(1)
+
+  planning ExercisePlanning @relation(fields: [planningId], references: [id], onDelete: Cascade)
+  exercise Exercise         @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+}
+
+model Exercise {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  unilateral Unilateral @default(NO)
+
+  bodyweight    Boolean @default(false)
+  exernalWeight Boolean @default(true)
+
+  createdBy   User?   @relation(fields: [createdById], references: [id])
+  createdById String?
+  Log         Log[]
+
+  ExercisePlanning    ExercisePlanning[]
+  PlanningAlternative PlanningAlternative[]
+}
+
+model Log {
+  id String @id @default(cuid())
+
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  session   Session? @relation(fields: [sessionId], references: [id])
+  sessionId String?
+
+  date       DateTime
+  dateString String   @default("0000-00-00")
+
+  bodyweight Int?
+
+  // Activity category
+  category ActivityCategory @default(BODYWEIGHT)
+
+  // Rep type and value
+  repType  RepStyle @default(REPS)
+  reps     Int? // For REPS type
+  time     Int? // For TIME type (in seconds)
+  distance Float? // For METERS type (in meters)
+  calories Int? // For CALORIES type
+
+  weight Int?
+
+  rpe   Int
+  notes String @default("")
+
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @default(now()) @updatedAt
+  trainingSession   TrainingSession? @relation(fields: [trainingSessionId], references: [id])
+  trainingSessionId String?
+
+  @@index([userId, dateString])
+}
+
+model TrainingSession {
+  id String @id @default(cuid())
+
+  name        String
+  type        WorkoutType @default(STRENGTH)
+  date        DateTime
+  includeTime Boolean     @default(false)
+  notes       String?     @db.Text
+
+  completed Boolean @default(false)
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  location   Locations? @relation(fields: [locationId], references: [id])
+  locationId String?
+
+  logs Log[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, date])
 }

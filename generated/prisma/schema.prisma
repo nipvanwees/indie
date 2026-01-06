@@ -15,18 +15,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  createdBy   User   @relation(fields: [createdById], references: [id])
-  createdById String
-
-  @@index([name])
-}
-
 model User {
   id            String    @id
   name          String //@db.Text
@@ -37,7 +25,9 @@ model User {
   updatedAt     DateTime  @default(now()) @updatedAt
   sessions      Session[]
   accounts      Account[]
-  posts         Post[]
+
+  athlete Boolean @default(true)
+  trainer Boolean @default(true)
 
   @@unique([email])
   @@map("user")

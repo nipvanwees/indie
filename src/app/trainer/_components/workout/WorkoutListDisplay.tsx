@@ -8,12 +8,12 @@ import {
   DropdownLabel,
   DropdownMenu,
 } from "~/app/_components/ui/dropdown";
-import { Locations, WorkoutPlan, WorkoutPlanning } from "@prisma/client";
+import type { Locations, WorkoutPlan, WorkoutPlanning } from "@prisma/client";
 import { Badge } from "~/app/_components/ui/badge";
 import { api } from "~/trpc/react";
 import { MdCalendarMonth, MdCopyAll, MdDelete, MdEdit, MdShare } from "react-icons/md";
 import { BsEye } from "react-icons/bs";
-import { Dialog, DialogBody, DialogTitle } from "../ui/dialog";
+import { Dialog, DialogBody, DialogTitle } from "~/app/_components/ui/dialog";
 import { useState } from "react";
 import { CopyCreateWorkout } from "./CopyCreateWorkout";
 

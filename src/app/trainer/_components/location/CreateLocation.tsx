@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { api } from "~/utils/api";
-import { Field, FieldGroup, Fieldset, Label } from "../ui/fieldset";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { api } from "~/trpc/react";
+import { Field, FieldGroup, Fieldset, Label } from "~/app/_components/ui/fieldset";
+import { Input } from "~/app/_components/ui/input";
+import { Button } from "~/app/_components/ui/button";
 
 export const CreateLocation = () => {
   const utils = api.useUtils();

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-import { WorkoutType, RepStyle, ActivityCategory } from "@prisma/client";
+import { ActivityCategory, RepStyle, WorkoutType } from "generated/prisma";
 
 export const sessionRouter = createTRPCRouter({
     create: protectedProcedure

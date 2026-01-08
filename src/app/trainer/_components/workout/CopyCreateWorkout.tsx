@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { api } from "~/utils/api";
-import { Field, FieldGroup, Label } from "../ui/fieldset";
-import { Input } from "../ui/input";
+import { api } from "~/trpc/react";
+import { Field, FieldGroup, Label } from "~/app/_components/ui/fieldset";
+import { Input } from "~/app/_components/ui/input";
 import toLocalDateTime from "~/utils/toLocalDateTime";
-import { Checkbox, CheckboxField } from "../ui/checkbox";
+import { Checkbox, CheckboxField } from "~/app/_components/ui/checkbox";
 import { SelectLocation } from "../location/SelectLocation";
-import { Button } from "../ui/button";
+import { Button } from "~/app/_components/ui/button";
 
 export const CopyCreateWorkout = ({
     copyId

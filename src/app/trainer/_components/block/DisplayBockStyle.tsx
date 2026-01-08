@@ -2,7 +2,7 @@ import { BlockStyle } from "@prisma/client"
 import { BsArrowRepeat } from "react-icons/bs"
 import { CiRepeat } from "react-icons/ci"
 import { FaAngleDoubleUp } from "react-icons/fa"
-import { Badge } from "../ui/badge"
+import { Badge } from "~/app/_components/ui/badge"
 
 export const DisplayBlockStyle = ({
     style,

@@ -1,14 +1,14 @@
 import { Exercise, ExercisePlanning, PlanningAlternative, Rounds, TimeStyle, Unilateral, UnilateralExecution, WorkoutBlock } from "@prisma/client"
-import { Description, Field, FieldGroup, Fieldset, Label } from "../ui/fieldset";
-import { Combobox, ComboboxLabel, ComboboxOption } from "../ui/combobox";
+import { Description, Field, FieldGroup, Fieldset, Label } from "~/app/_components/ui/fieldset";
+import { Combobox, ComboboxLabel, ComboboxOption } from "~/app/_components/ui/combobox";
 import { useState } from "react";
-import { api } from "~/utils/api";
-import { Input } from "../ui/input";
-import { Select } from "../ui/select";
-import { Textarea } from "../ui/textarea";
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "../ui/dropdown";
-import { Divider } from "../ui/divider";
-import { Button } from "../ui/button";
+import { api } from "~/trpc/react";
+import { Input } from "~/app/_components/ui/input";
+import { Select } from "~/app/_components/ui/select";
+import { Textarea } from "~/app/_components/ui/textarea";
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "~/app/_components/ui/dropdown";
+import { Divider } from "~/app/_components/ui/divider";
+import { Button } from "~/app/_components/ui/button";
 import { ExercisePlanningForm } from "./ExercisePlanningForm";
 
 export const EditExercisePlanning = ({

@@ -1,6 +1,6 @@
 import { WorkoutType } from "@prisma/client";
 import { useState } from "react";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 import toLocalDateTime from "~/utils/toLocalDateTime";
 import { SelectLocation } from "../location/SelectLocation";
 import {
@@ -10,11 +10,11 @@ import {
   Fieldset,
   Label,
   Legend,
-} from "../ui/fieldset";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Select } from "../ui/select";
-import { Checkbox, CheckboxField } from "../ui/checkbox";
+} from "~/app/_components/ui/fieldset";
+import { Input } from "~/app/_components/ui/input";
+import { Button } from "~/app/_components/ui/button";
+import { Select } from "~/app/_components/ui/select";
+import { Checkbox, CheckboxField } from "~/app/_components/ui/checkbox";
 
 export const CreateWorkout = ({ defaultDate }: { defaultDate?: Date }) => {
   const utils = api.useUtils();

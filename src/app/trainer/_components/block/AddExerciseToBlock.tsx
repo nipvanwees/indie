@@ -1,15 +1,15 @@
-import { api } from "~/utils/api";
-import { Combobox, ComboboxLabel, ComboboxOption } from "../ui/combobox";
-import { Description, Field, FieldGroup, Fieldset, Label } from "../ui/fieldset";
-import { Input } from "../ui/input";
+import { api } from "~/trpc/react";
+import { Combobox, ComboboxLabel, ComboboxOption } from "~/app/_components/ui/combobox";
+import { Description, Field, FieldGroup, Fieldset, Label } from "~/app/_components/ui/fieldset";
+import { Input } from "~/app/_components/ui/input";
 import { useState } from "react";
-import { Select } from "../ui/select";
-import { Button } from "../ui/button";
-import { Textarea } from "../ui/textarea";
+import { Select } from "~/app/_components/ui/select";
+import { Button } from "~/app/_components/ui/button";
+import { Textarea } from "~/app/_components/ui/textarea";
 import { Exercise, TimeStyle, Unilateral, UnilateralExecution, WorkoutBlock } from "@prisma/client";
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "../ui/dropdown";
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "~/app/_components/ui/dropdown";
 import { BsArrowDown } from "react-icons/bs";
-import { Divider } from "../ui/divider";
+import { Divider } from "~/app/_components/ui/divider";
 import { ExercisePlanningForm } from "../exercisePlanning/ExercisePlanningForm";
 
 export const AddExerciseToBlock = ({ block }: { block: WorkoutBlock }) => {

@@ -1,5 +1,5 @@
 import { Exercise, ExercisePlanning, PlanningAlternative } from "@prisma/client";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 
 export const PreviouslyPlanned = ({exerciseId, onAdd}: {exerciseId: string, onAdd: (exercisePlanning: ExercisePlanning & {
     exercise: Exercise

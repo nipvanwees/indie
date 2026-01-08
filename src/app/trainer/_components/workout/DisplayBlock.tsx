@@ -1,7 +1,7 @@
 import { WorkoutBlock } from "@prisma/client";
 import { useState } from "react";
 import { CreateElement } from "~/pages/teacher";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 
 export const DisplayBlock = ({
   block,

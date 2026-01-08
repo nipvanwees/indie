@@ -1,9 +1,9 @@
 import type { Locations } from "@prisma/client";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 import { CreateLocation } from "./CreateLocation";
-import { Select } from "../ui/select";
-import { Button } from "../ui/button";
-import { Dialog, DialogBody, DialogTitle } from "../ui/dialog";
+import { Select } from "~/app/_components/ui/select";
+import { Button } from "~/app/_components/ui/button";
+import { Dialog, DialogBody, DialogTitle } from "~/app/_components/ui/dialog";
 import { useState } from "react";
 
 export const SelectLocation = ({

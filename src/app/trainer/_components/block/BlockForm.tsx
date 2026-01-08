@@ -1,11 +1,11 @@
 import { BlockPurpose, BlockStyle, WorkoutBlock } from "@prisma/client"
 import { SubmitHandler, useForm, UseFormReset } from "react-hook-form"
-import { Field, FieldGroup, Fieldset, Label } from "../ui/fieldset"
-import { Input } from "../ui/input"
-import { Select } from "../ui/select"
-import { Textarea } from "../ui/textarea"
-import { Button } from "../ui/button"
-import { Checkbox, CheckboxField } from "../ui/checkbox"
+import { Field, FieldGroup, Fieldset, Label } from "~/app/_components/ui/fieldset"
+import { Input } from "~/app/_components/ui/input"
+import { Select } from "~/app/_components/ui/select"
+import { Textarea } from "~/app/_components/ui/textarea"
+import { Button } from "~/app/_components/ui/button"
+import { Checkbox, CheckboxField } from "~/app/_components/ui/checkbox"
 
 
 interface WorkoutBlockForm {

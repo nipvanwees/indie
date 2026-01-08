@@ -1,4 +1,4 @@
-import { api } from "~/utils/api"
+import { api } from "~/trpc/react"
 import { BlockForm } from "./BlockForm"
 import { WorkoutPlan } from "@prisma/client"
 

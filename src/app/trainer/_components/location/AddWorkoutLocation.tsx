@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 
 export const AddWorkoutLocation = ({ id }: { id: string }) => {
   const { data: locations, isLoading } = api.location.getAll.useQuery();

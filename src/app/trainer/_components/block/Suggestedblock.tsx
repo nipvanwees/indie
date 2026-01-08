@@ -1,12 +1,12 @@
 import { BlockPurpose } from "@prisma/client";
 import { useEffect, useMemo, useState } from "react";
 import useSwipe from "~/hooks/useSwipe";
-import { api } from "~/utils/api";
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "../ui/dropdown";
-import { Dialog, DialogBody, DialogTitle } from "../ui/dialog";
-import { Field, Label } from "../ui/fieldset";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { api } from "~/trpc/react";
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "~/app/_components/ui/dropdown";
+import { Dialog, DialogBody, DialogTitle } from "~/app/_components/ui/dialog";
+import { Field, Label } from "~/app/_components/ui/fieldset";
+import { Button } from "~/app/_components/ui/button";
+import { Input } from "~/app/_components/ui/input";
 
 export const SuggestedBlock = ({
   workoutId,

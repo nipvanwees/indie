@@ -1,5 +1,5 @@
 import { WorkoutBlock } from "@prisma/client";
-import { api } from "~/utils/api";
+import { api } from "~/trpc/react";
 import { BlockForm } from "./BlockForm";
 
 export const EditBlockDetails = ({

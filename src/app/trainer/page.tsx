@@ -3,6 +3,7 @@ import HorizontalCalendar from "./_components/horizontal-calendar";
 
 
 const EventsHorizontalCalendar = () => {
+
     const eventsQuery = api.workoutPlanning.getAll.useQuery();
   
     if (eventsQuery.isLoading) {

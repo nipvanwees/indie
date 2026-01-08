@@ -1,12 +1,14 @@
+"use client"
+
 import { api } from "~/trpc/server";
 
 import moment, { type Moment } from "moment";
 import { useEffect, useMemo, useState } from "react";
 import { BsArrowLeft, BsArrowRight, BsCalendarCheckFill } from "react-icons/bs";
-import { CreateWorkout } from "../workout/CreateWorkout";
-import { Dialog } from "../ui/dialog";
-import { WorkoutListDisplay, WorkoutPlanningListDisplay } from "../workout/WorkoutListDisplay";
-import { Button } from "../ui/button";
+import { Button } from "~/app/_components/ui/button";
+import { Dialog } from "~/app/_components/ui/dialog";
+import { WorkoutPlanningListDisplay } from "./workout/WorkoutListDisplay";
+import { CreateWorkout } from "./workout/CreateWorkout";
 
 declare global {
   interface Date {
@@ -282,9 +284,7 @@ const HorizontalCalendar = ({
 
         <Button
           outline
-          onClick={() => {
-            setCreateOpen(true);
-          }}
+          onClick={() => setCreateOpen(true)}
         >
           Create workout
         </Button>

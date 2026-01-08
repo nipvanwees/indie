@@ -8,6 +8,7 @@ import { HydrateClient } from "~/trpc/server";
 
 export default async function Home() {
   const session = await getSession();
+  console.log(session);
 
   if (!session) {
     redirect("/login");
@@ -29,7 +30,6 @@ export default async function Home() {
               {!session ? (
                 <form>
                   LOG IN CUNT
-          
                 </form>
               ) : (
                 <form>

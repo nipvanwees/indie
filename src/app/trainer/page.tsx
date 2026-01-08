@@ -6,9 +6,7 @@ export default async function TrainerHome() {
     
     return (
         <div>
-
                 <HorizontalCalendar events={events ?? []} />
-
 
         </div>
     )

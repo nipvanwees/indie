@@ -1,19 +1,19 @@
 import { useForm, SubmitHandler, UseFormReset } from "react-hook-form"
 import { Field, FieldGroup, Fieldset, Label } from "~/app/_components/ui/fieldset"
-import { SelectExercise, SelectExerciseForced } from "../exercise/SelectExercise"
+import { SelectExercise, SelectExerciseForced } from "~/app/_components/exercise/SelectExercise"
 import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "~/app/_components/ui/dropdown"
 import { Divider } from "~/app/_components/ui/divider"
 import { Button } from "~/app/_components/ui/button"
 import { Select } from "~/app/_components/ui/select"
-import { AlternativeType, Exercise, ExercisePlanning, PlanningAlternative, RepStyle, Rounds, TimeStyle, Unilateral, UnilateralExecution, WorkoutBlock } from "@prisma/client"
 import { Input } from "~/app/_components/ui/input"
 import { Textarea } from "~/app/_components/ui/textarea"
 import { useEffect, useState } from "react"
 import { Checkbox, CheckboxField } from "~/app/_components/ui/checkbox"
 import { Switch } from "~/app/_components/ui/switch"
-import { DisplayExerciseName } from "../exercise/DisplayExerciseName"
+import { DisplayExerciseName } from "~/app/_components/exercise/DisplayExerciseName"
 import { PreviouslyPlanned } from "./Previouslyplanned"
 import { set } from "zod"
+import { AlternativeType, RepStyle, TimeStyle, Unilateral, UnilateralExecution, type Exercise, type ExercisePlanning, type PlanningAlternative, type Rounds, type WorkoutBlock } from "@prisma/client"
   
 interface ExercisePlanningForm {
     exerciseId: string,

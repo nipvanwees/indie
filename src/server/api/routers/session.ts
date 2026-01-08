@@ -14,7 +14,7 @@ export const sessionRouter = createTRPCRouter({
             locationId: z.string().optional(),
         }))
         .mutation(async ({ input, ctx }) => {
-            const session = await ctx.db.session.create({
+            const trainingSession = await ctx.db.trainingSession.create({
                 data: {
                     userId: input.studentId,
                     name: input.name,
@@ -33,7 +33,7 @@ export const sessionRouter = createTRPCRouter({
                     },
                 },
             });
-            return session;
+            return trainingSession;
         }),
 
     getByDate: protectedProcedure
@@ -48,7 +48,7 @@ export const sessionRouter = createTRPCRouter({
             const endOfDay = new Date(input.date);
             endOfDay.setHours(23, 59, 59, 999);
 
-            const sessions = await ctx.db.session.findMany({
+            const trainingSession = await ctx.db.trainingSession.findMany({
                 where: {
                     userId: input.studentId,
                     date: {
@@ -72,7 +72,7 @@ export const sessionRouter = createTRPCRouter({
                 },
             });
 
-            return sessions;
+            return trainingSession;
         }),
 
     getById: protectedProcedure
@@ -80,7 +80,7 @@ export const sessionRouter = createTRPCRouter({
             sessionId: z.string().min(3),
         }))
         .query(async ({ input, ctx }) => {
-            const session = await ctx.db.session.findUnique({
+            const trainingSession = await ctx.db.trainingSession.findUnique({
                 where: {
                     id: input.sessionId,
                 },
@@ -97,11 +97,11 @@ export const sessionRouter = createTRPCRouter({
                 },
             });
 
-            if (!session) {
+            if (!trainingSession) {
                 throw new Error("Session not found");
             }
 
-            return session;
+            return trainingSession;
         }),
 
     getAll: protectedProcedure
@@ -110,7 +110,7 @@ export const sessionRouter = createTRPCRouter({
             limit: z.number().min(1).max(100).default(50),
         }))
         .query(async ({ input, ctx }) => {
-            const sessions = await ctx.db.session.findMany({
+            const trainingSession = await ctx.db.trainingSession.findMany({
                 where: {
                     userId: input.studentId,
                 },
@@ -128,7 +128,7 @@ export const sessionRouter = createTRPCRouter({
                 take: input.limit,
             });
 
-            return sessions;
+            return trainingSession;
         }),
 
     update: protectedProcedure
@@ -145,7 +145,7 @@ export const sessionRouter = createTRPCRouter({
         .mutation(async ({ input, ctx }) => {
             const { sessionId, ...updateData } = input;
 
-            const session = await ctx.db.session.update({
+            const trainingSession = await ctx.db.trainingSession.update({
                 where: {
                     id: sessionId,
                 },
@@ -160,7 +160,7 @@ export const sessionRouter = createTRPCRouter({
                 },
             });
 
-            return session;
+            return trainingSession;
         }),
 
     delete: protectedProcedure
@@ -176,7 +176,7 @@ export const sessionRouter = createTRPCRouter({
             });
 
             // Then delete the session
-            await ctx.db.session.delete({
+            await ctx.db.trainingSession.delete({
                 where: {
                     id: input.sessionId,
                 },
@@ -201,13 +201,13 @@ export const sessionRouter = createTRPCRouter({
         }))
         .mutation(async ({ input, ctx }) => {
             // Get the session to get the userId and date
-            const session = await ctx.db.session.findUnique({
+            const trainingSession = await ctx.db.trainingSession.findUnique({
                 where: { id: input.sessionId },
                 select: { userId: true, date: true },
             });
 
-            if (!session) {
-                throw new Error("Session not found");
+            if (!trainingSession) {
+                throw new Error("trainingSession not found");
             }
 
             // Validate that the appropriate value is provided based on repType
@@ -243,11 +243,11 @@ export const sessionRouter = createTRPCRouter({
 
             const log = await ctx.db.log.create({
                 data: {
-                    userId: session.userId,
+                    userId: trainingSession.userId,
                     sessionId: input.sessionId,
                     exerciseId: input.exerciseId,
-                    date: session.date,
-                    dateString: session.date.toISOString().split('T')[0],
+                    date: trainingSession.date,
+                    dateString: trainingSession.date.toISOString().split('T')[0],
                     category: input.category,
                     repType: input.repType,
                     reps: repType === RepStyle.REPS ? repValue : null,

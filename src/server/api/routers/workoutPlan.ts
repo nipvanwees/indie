@@ -7,7 +7,7 @@ export const workoutPlanRouter = createTRPCRouter({
     getWorkout: publicProcedure
         .input(z.object({ id: z.string() }))
         .query(async ({ input, ctx }) => {
-            const workout = await ctx.db.workoutPlan.findFirstOrThrow({
+            const workout = await ctx.db.workout.findFirstOrThrow({
                 where: {
                     id: input.id
                 },
@@ -43,7 +43,7 @@ export const workoutPlanRouter = createTRPCRouter({
         }))
         .mutation(async ({ ctx, input }) => {
             // fetch the workout we copy it from
-            const workout = await ctx.db.workoutPlan.findFirstOrThrow({
+            const workout = await ctx.db.workout.findFirstOrThrow({
                 where: {
                     id: input.workoutId
                 },
@@ -66,7 +66,7 @@ export const workoutPlanRouter = createTRPCRouter({
             }
 
             // create the new workout
-            const newWorkout = await ctx.db.workoutPlan.create({
+            const newWorkout = await ctx.db.workout.create({
                 data: {
                     name: workout.name,
                     completed: false,
@@ -81,7 +81,7 @@ export const workoutPlanRouter = createTRPCRouter({
             for (const i of workout.WorkoutBlock) {
                 await ctx.db.workoutBlock.create({
                     data: {
-                        workoutPlanId: newWorkout.id,
+                        workoutId: newWorkout.id,
                         name: i.name,
                         notes: i.notes,
                         completed: false,
@@ -110,7 +110,7 @@ export const workoutPlanRouter = createTRPCRouter({
                     date: input.date,
                     includeTime: input.includeTime,
                     locationId: input.locationId,
-                    workoutPlanId: newWorkout.id
+                    workoutId: newWorkout.id
                 }
             })
         }),
@@ -126,7 +126,7 @@ export const workoutPlanRouter = createTRPCRouter({
             locationId: z.string().nullable()
         }))
         .mutation(async ({ ctx, input }) => {
-            const workout = await ctx.db.workoutPlan.update({
+            const workout = await ctx.db.workout.update({
                 where: {
                     id: input.id
                 },
@@ -145,7 +145,7 @@ export const workoutPlanRouter = createTRPCRouter({
     markAsFinished: publicProcedure
         .input(z.object({ id: z.string() }))
         .mutation(async ({ input, ctx }) => {
-            const workout = await ctx.db.workoutPlan.update({
+            const workout = await ctx.db.workout.update({
                 where: {
                     id: input.id
                 },
@@ -157,7 +157,7 @@ export const workoutPlanRouter = createTRPCRouter({
             // also mark all blocks as completed
             await ctx.db.workoutBlock.updateMany({
                 where: {
-                    workoutPlanId: input.id
+                    workoutId: input.id
                 },
                 data: {
                     completed: true
@@ -169,7 +169,7 @@ export const workoutPlanRouter = createTRPCRouter({
 
     getNames: publicProcedure
         .query(async ({ ctx }) => {
-            const workouts = await ctx.db.workoutPlan.findMany({
+            const workouts = await ctx.db.workout.findMany({
                 select: {
                     id: true,
                     name: true,
@@ -195,7 +195,7 @@ export const workoutPlanRouter = createTRPCRouter({
 
     getAll: publicProcedure
         .query(async ({ ctx }) => {
-            const workouts = await ctx.db.workoutPlan.findMany({
+            const workouts = await ctx.db.workout.findMany({
                 include: {
                     location: true,
                     WorkoutBlock: true
@@ -206,7 +206,7 @@ export const workoutPlanRouter = createTRPCRouter({
 
     getUpcoming: publicProcedure
         .query(async ({ ctx }) => {
-            const workouts = await ctx.db.workoutPlan.findMany({
+            const workouts = await ctx.db.workout.findMany({
                 where: {
                     date: {
                         gte: new Date()
@@ -233,7 +233,7 @@ export const workoutPlanRouter = createTRPCRouter({
 
     getPast: publicProcedure
         .query(async ({ ctx }) => {
-            const workouts = await ctx.db.workoutPlan.findMany({
+            const workouts = await ctx.db.workout.findMany({
                 where: {
                     date: {
                         lt: new Date()
@@ -246,37 +246,53 @@ export const workoutPlanRouter = createTRPCRouter({
 
     create: publicProcedure
         .input(z.object({
-            name: z.string().min(1),
-            date: z.date(),
-            notes: z.string().optional(),
-            includeTime: z.boolean(),
+            // For new workout
+            name: z.string().min(1).optional(),
             type: z.nativeEnum(WorkoutType).optional(),
+            notes: z.string().optional(),
+            // For existing workout
+            workoutId: z.string().optional(),
+            // Common fields for planning
+            date: z.date(),
+            includeTime: z.boolean(),
             locationId: z.string().nullable()
         }))
         .mutation(async ({ ctx, input }) => {
+            let workoutId: string;
 
-            const workout = await ctx.db.workoutPlan.create({
-                data: {
-                    name: input.name,
-                    date: input.date,
-                    includeTime: input.includeTime ? input.includeTime : false,
-                    type: input.type ? input.type : WorkoutType.OPEN,
-                    notes: input.notes,
-                    locationId: input.locationId
+            // If workoutId is provided, use existing workout
+            if (input.workoutId) {
+                workoutId = input.workoutId;
+            } else {
+                // Otherwise, create a new workout
+                if (!input.name) {
+                    throw new Error("Name is required when creating a new workout");
                 }
-            });
+                const workout = await ctx.db.workout.create({
+                    data: {
+                        name: input.name,
+                        date: input.date,
+                        includeTime: input.includeTime ? input.includeTime : false,
+                        type: input.type ? input.type : WorkoutType.OPEN,
+                        notes: input.notes,
+                        locationId: input.locationId
+                    }
+                });
+                workoutId = workout.id;
+            }
 
-            // also create the planning
-            await ctx.db.workoutPlanning.create({
+            // Create the planning with the workout (new or existing)
+            const planning = await ctx.db.workoutPlanning.create({
                 data: {
                     date: input.date,
                     includeTime: input.includeTime,
                     locationId: input.locationId,
-                    workoutPlanId: workout.id
+                    workoutId: workoutId,
+                    userId: ctx.session?.user?.id
                 }
-            })
+            });
 
-            return workout;
+            return planning;
         }
         ),
 });

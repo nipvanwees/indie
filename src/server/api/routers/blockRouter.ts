@@ -85,7 +85,7 @@ export const blockRouter = createTRPCRouter({
                 name: block.name,
                 style: block.style,
                 notes: block.notes,
-                workoutPlanId: input.workoutId,         
+                workoutId: input.workoutId,         
                 rounds: block.rounds,
                 maxDurationMin: block.maxDurationMin,
                 blockPurpose: block.blockPurpose,
@@ -198,7 +198,7 @@ addBlockToWorkout: publicProcedure
                 name: block.name,
                 style: block.style,
                 notes: block.notes,
-                workoutPlanId: input.workoutId,
+                workoutId: input.workoutId,
                 rounds: block.rounds, 
                 blockPurpose: block.blockPurpose,
 
@@ -230,7 +230,7 @@ addBlockToWorkout: publicProcedure
        .input(z.object({ workoutId: z.string() }))
        .query(async ({ input, ctx }) => {
            // get the workout
-           const workout = await ctx.db.workoutPlan.findFirstOrThrow({
+           const workout = await ctx.db.workout.findFirstOrThrow({
                where: {
                    id: input.workoutId,
                },
@@ -250,7 +250,7 @@ addBlockToWorkout: publicProcedure
            });
    
            // get similar workouts
-           const similarWorkouts = await ctx.db.workoutPlan.findMany({
+           const similarWorkouts = await ctx.db.workout.findMany({
                where: {
                    name: workout.name,
                    completed: true,
@@ -312,7 +312,7 @@ addBlockToWorkout: publicProcedure
                 name: input.name,
                 style: input.style ? input.style : BlockStyle.TOPDOWN,
                 notes: input.notes ? input.notes : "",
-                workoutPlanId: input.workoutId,
+                workoutId: input.workoutId,
                 rounds: input.rounds ? input.rounds : null,
                 maxDurationMin: input.maxDurationMin ? input.maxDurationMin : null,
                 blockPurpose: input.blockPurpose ? input.blockPurpose : BlockPurpose.INTENSITY,

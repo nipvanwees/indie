@@ -1,9 +1,9 @@
 import { api } from "~/trpc/react"
 import { BlockForm } from "./BlockForm"
-import type { WorkoutPlanWithRelations } from "~/utils/trpc-types";
+import type { WorkoutWithRelations } from "~/utils/trpc-types";
 
 
-export const AddBlockToWorkout = ({workout, onCreated}: {workout: WorkoutPlanWithRelations, onCreated: () => void}) => {
+export const AddBlockToWorkout = ({workout, onCreated}: {workout: WorkoutWithRelations, onCreated: () => void}) => {
     const utils = api.useUtils()
 
     const createMutation = api.block.addBlock.useMutation({

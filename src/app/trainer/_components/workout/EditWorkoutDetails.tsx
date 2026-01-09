@@ -15,13 +15,13 @@
     import { Button } from "~/app/_components/ui/button";
     import { Select } from "~/app/_components/ui/select";
     import { Checkbox, CheckboxField } from "~/app/_components/ui/checkbox";
-    import type { WorkoutPlanWithRelations } from "~/utils/trpc-types";
+    import type { WorkoutWithRelations } from "~/utils/trpc-types";
 
 export const EditWorkoutDetails = ({
     workout,
     onUpdated
         }: {
-        workout: WorkoutPlanWithRelations,
+        workout: WorkoutWithRelations,
         onUpdated: () => void;
 
 }) => {

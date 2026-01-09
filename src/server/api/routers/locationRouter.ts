@@ -31,7 +31,7 @@ export const locationRouter = createTRPCRouter({
             locationId: z.string(),
         }))
         .mutation(async ({ ctx, input }) => {
-            return ctx.db.workoutPlan.update({
+            return ctx.db.workout.update({
                 where: {
                     id: input.workoutId,
                 },

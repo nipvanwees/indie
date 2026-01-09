@@ -142,7 +142,7 @@ key={block.id}
   <DropdownItem onClick={() => {
     dupplicateBlockMutation.mutate({
         blockId: block.id,
-        workoutId: block.workoutPlanId,
+        workoutId: block.workoutId,
     });
   }}>
     Duplicate

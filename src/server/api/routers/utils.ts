@@ -6,7 +6,7 @@ export const utilsRouter = createTRPCRouter({
 
     fromPlanToPlanning: publicProcedure
      .mutation(async ({ ctx }) => {
-        const plannings = await ctx.db.workoutPlan.findMany();
+        const plannings = await ctx.db.workout.findMany();
 
         // async loop over all plannings
             for(const plan of plannings) {
@@ -17,7 +17,7 @@ export const utilsRouter = createTRPCRouter({
                 const check = await ctx.db.workoutPlanning.findFirst({
                     where: {
                         date: plan.date,
-                        workoutPlanId: plan.id
+                        workoutId: plan.id
                     }
                 })
 
@@ -31,7 +31,7 @@ export const utilsRouter = createTRPCRouter({
                             date: plan.date,
                             includeTime: plan.includeTime,
                             locationId: plan.locationId,
-                            workoutPlanId: plan.id,
+                            workoutId: plan.id,
                         }
                     })
                 }

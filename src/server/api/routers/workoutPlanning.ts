@@ -3,7 +3,6 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const workoutPlanningRouter = createTRPCRouter({
-
     //TODO: make this private
     getPersonal: publicProcedure
         .query(async ({ ctx }) => {
@@ -13,20 +12,21 @@ export const workoutPlanningRouter = createTRPCRouter({
                 },
                 include: {
                     workout: true,
-                    location: true
+                    location: true,
                 }
             })
         }),
+
     getAll: publicProcedure
         .query(async ({ ctx }) => {
             return await ctx.db.workoutPlanning.findMany({
                 where: {
-                    workoutPlan: {
+                    workout: {
                         userId: ctx.session?.user?.id
                     }
                 },
                 include: {
-                    workoutPlan: true,
+                    workout: true,
                     location: true
                 }
             })

@@ -8,7 +8,7 @@ import {
   DropdownLabel,
   DropdownMenu,
 } from "~/app/_components/ui/dropdown";
-import type { Locations, WorkoutPlan, WorkoutPlanning } from "@prisma/client";
+import type { Locations, Workout, WorkoutPlanning } from "@prisma/client";
 import { Badge } from "~/app/_components/ui/badge";
 import { api } from "~/trpc/react";
 import { MdCalendarMonth, MdCopyAll, MdDelete, MdEdit, MdShare } from "react-icons/md";
@@ -21,7 +21,7 @@ export const WorkoutPlanningListDisplay = ({
   workout,
 }: {
   workout: WorkoutPlanning & {
-    workoutPlan: WorkoutPlan,
+    workout: Workout,
     location: Locations | null;
   };
 }) => {
@@ -55,7 +55,7 @@ export const WorkoutPlanningListDisplay = ({
       <div className="min-w-0">
         <div className="flex items-start gap-x-3">
           <p className="text-sm/6 font-semibold text-gray-900">
-            {workout.workoutPlan.name}
+            {workout.workout.name}
           </p>
         </div>
 
@@ -68,7 +68,7 @@ export const WorkoutPlanningListDisplay = ({
           <svg viewBox="0 0 2 2" className="size-0.5 fill-current">
             <circle r={1} cx={1} cy={1} />
           </svg>
-          {workout.workoutPlan.completed ? (
+          {workout.workout.completed ? (
             <Badge color="green" className="text-xs/5">
               completed
             </Badge>
@@ -94,21 +94,21 @@ export const WorkoutPlanningListDisplay = ({
           </DropdownButton>
           <DropdownMenu transition>
             <DropdownItem>
-              <a href={`/workout/edit/${workout.workoutPlanId}`} className="flex gap-2 items-center">
+              <a href={`/workout/edit/${workout.workoutId}`} className="flex gap-2 items-center">
                 <MdCalendarMonth />
-                Edit planning<span className="sr-only">, {workout.workoutPlan.name}</span>
+                Edit planning<span className="sr-only">, {workout.workout.name}</span>
               </a>
             </DropdownItem>
           <DropdownItem>
               <a href={`/teacher/show/${workout.id}`} className="flex gap-2 items-center">
               <BsEye />
-                View workout<span className="sr-only">, {workout.workoutPlan.name}</span>
+                View workout<span className="sr-only">, {workout.workout.name}</span>
               </a>
             </DropdownItem>
             <DropdownItem>
-              <a href={`/workout/edit/${workout.workoutPlanId}`} className="flex gap-2 items-center">
+              <a href={`/workout/edit/${workout.workoutId}`} className="flex gap-2 items-center">
                 <MdEdit />
-                Edit workout<span className="sr-only">, {workout.workoutPlan.name}</span>
+                Edit workout<span className="sr-only">, {workout.workout.name}</span>
               </a>
             </DropdownItem>
          
@@ -128,7 +128,7 @@ export const WorkoutPlanningListDisplay = ({
             <DropdownItem>
               <a onClick={() => deletePlan(workout.id)} className="flex gap-2 items-center">
                 <MdDelete  />
-                Delete<span className="sr-only">, {workout.workoutPlan.name}</span>
+                Delete<span className="sr-only">, {workout.workout.name}</span>
               </a>
             </DropdownItem>
           </DropdownMenu>
@@ -138,7 +138,7 @@ export const WorkoutPlanningListDisplay = ({
       <Dialog open={copyOpen} onClose={() => setCopyOpen(false)}>
         <DialogTitle>Copy and edit</DialogTitle>
         <DialogBody>
-          <CopyCreateWorkout copyId={workout.workoutPlanId} />
+          <CopyCreateWorkout copyId={workout.workoutId} />
         </DialogBody>
       </Dialog>
     </li>

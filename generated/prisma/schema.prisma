@@ -29,7 +29,7 @@ model User {
   athlete          Boolean           @default(true)
   trainer          Boolean           @default(true)
   locations        Locations[]
-  workoutPlans     WorkoutPlan[]
+  workouts         Workout[]
   exercises        Exercise[]
   logs             Log[]
   trainingSessions TrainingSession[]
@@ -111,7 +111,7 @@ model Locations {
 
   user             User?             @relation(fields: [userId], references: [id])
   userId           String?
-  WorkoutPlan      WorkoutPlan[]
+  Workout          Workout[]
   WorkoutPlanning  WorkoutPlanning[]
   Session          Session[]
   trainingSessions TrainingSession[]
@@ -141,11 +141,11 @@ model WorkoutPlanning {
   location   Locations? @relation(fields: [locationId], references: [id])
   locationId String?
 
-  workoutPlanId String
-  workoutPlan   WorkoutPlan @relation(fields: [workoutPlanId], references: [id])
+  workoutId String?
+  workout   Workout? @relation(fields: [workoutId], references: [id])
 }
 
-model WorkoutPlan {
+model Workout {
   id   String @id @default(cuid())
   name String
 
@@ -194,8 +194,8 @@ model WorkoutBlock {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  workoutPlan   WorkoutPlan @relation(fields: [workoutPlanId], references: [id])
-  workoutPlanId String
+  workout   Workout @relation(fields: [workoutId], references: [id])
+  workoutId String
 
   style        BlockStyle   @default(ROUNDS)
   blockPurpose BlockPurpose @default(INTENSITY)

@@ -1,12 +1,23 @@
-import { api } from "~/trpc/server";
+"use client";
+import { api } from "~/trpc/react";
 import HorizontalCalendar from "./_components/horizontal-calendar";
 
-export default async function TrainerHome() {
-    const events = await api.workoutPlanning.getPersonal();
+export default function TrainerHome() {
+    //type = PersonalWorkoutPlanning 
+    const {data: events, isLoading} =  api.workoutPlanning.getPersonal.useQuery();
+    console.log(events);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (!events) {
+        return <div>No events found</div>;
+    }
     
     return (
         <div>
-                <HorizontalCalendar events={events ?? []} />
+            <HorizontalCalendar workoutPlannings={events} />
         </div>
     )
 }

@@ -185,10 +185,10 @@ exports.Prisma.WorkoutPlanningScalarFieldEnum = {
   date: 'date',
   includeTime: 'includeTime',
   locationId: 'locationId',
-  workoutPlanId: 'workoutPlanId'
+  workoutId: 'workoutId'
 };
 
-exports.Prisma.WorkoutPlanScalarFieldEnum = {
+exports.Prisma.WorkoutScalarFieldEnum = {
   id: 'id',
   name: 'name',
   type: 'type',
@@ -209,7 +209,7 @@ exports.Prisma.WorkoutBlockScalarFieldEnum = {
   notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  workoutPlanId: 'workoutPlanId',
+  workoutId: 'workoutId',
   style: 'style',
   blockPurpose: 'blockPurpose',
   rounds: 'rounds',
@@ -371,10 +371,10 @@ exports.Prisma.WorkoutPlanningOrderByRelevanceFieldEnum = {
   id: 'id',
   userId: 'userId',
   locationId: 'locationId',
-  workoutPlanId: 'workoutPlanId'
+  workoutId: 'workoutId'
 };
 
-exports.Prisma.WorkoutPlanOrderByRelevanceFieldEnum = {
+exports.Prisma.WorkoutOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
   notes: 'notes',
@@ -386,7 +386,7 @@ exports.Prisma.WorkoutBlockOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
   notes: 'notes',
-  workoutPlanId: 'workoutPlanId'
+  workoutId: 'workoutId'
 };
 
 exports.Prisma.ExercisePlanningOrderByRelevanceFieldEnum = {
@@ -503,7 +503,7 @@ exports.Prisma.ModelName = {
   Verification: 'Verification',
   Locations: 'Locations',
   WorkoutPlanning: 'WorkoutPlanning',
-  WorkoutPlan: 'WorkoutPlan',
+  Workout: 'Workout',
   WorkoutBlock: 'WorkoutBlock',
   ExercisePlanning: 'ExercisePlanning',
   Rounds: 'Rounds',

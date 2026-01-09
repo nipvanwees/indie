@@ -34,7 +34,7 @@ export const EditBlockDetails = ({
                     })
                     reset()
                 }}
-                workoutId={block.workoutPlanId}
+                workoutId={block.workoutId}
             />
         </div>
     )

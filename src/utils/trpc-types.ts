@@ -26,8 +26,8 @@ import type { RouterOutputs } from "~/trpc/react";
  * type Workout = GetRouterOutput<'workoutPlan', 'getWorkout'>
  */
 export type GetRouterOutput<
-  TRouter extends keyof RouterOutputs,
-  TProcedure extends keyof RouterOutputs[TRouter]
+    TRouter extends keyof RouterOutputs,
+    TProcedure extends keyof RouterOutputs[TRouter]
 > = RouterOutputs[TRouter][TProcedure];
 
 /**
@@ -37,13 +37,13 @@ export type GetRouterOutput<
  * type Workout = GetRouterOutputItem<'workoutPlan', 'getAll'>
  */
 export type GetRouterOutputItem<
-  TRouter extends keyof RouterOutputs,
-  TProcedure extends keyof RouterOutputs[TRouter]
+    TRouter extends keyof RouterOutputs,
+    TProcedure extends keyof RouterOutputs[TRouter]
 > = RouterOutputs[TRouter][TProcedure] extends (infer T)[]
-  ? T
-  : RouterOutputs[TRouter][TProcedure] extends readonly (infer T)[]
-  ? T
-  : never;
+    ? T
+    : RouterOutputs[TRouter][TProcedure] extends readonly (infer T)[]
+    ? T
+    : never;
 
 /**
  * Extract a nested property type from a router output
@@ -53,17 +53,17 @@ export type GetRouterOutputItem<
  * type WorkoutBlock = GetNestedType<'workoutPlan', 'getWorkout', 'WorkoutBlock', true> // single item
  */
 export type GetNestedType<
-  TRouter extends keyof RouterOutputs,
-  TProcedure extends keyof RouterOutputs[TRouter],
-  TProperty extends keyof NonNullable<RouterOutputs[TRouter][TProcedure]>,
-  TSingleItem extends boolean = false
+    TRouter extends keyof RouterOutputs,
+    TProcedure extends keyof RouterOutputs[TRouter],
+    TProperty extends keyof NonNullable<RouterOutputs[TRouter][TProcedure]>,
+    TSingleItem extends boolean = false
 > = TSingleItem extends true
-  ? NonNullable<RouterOutputs[TRouter][TProcedure]>[TProperty] extends (infer T)[]
+    ? NonNullable<RouterOutputs[TRouter][TProcedure]>[TProperty] extends (infer T)[]
     ? T
     : NonNullable<RouterOutputs[TRouter][TProcedure]>[TProperty] extends readonly (infer T)[]
     ? T
     : NonNullable<RouterOutputs[TRouter][TProcedure]>[TProperty]
-  : NonNullable<RouterOutputs[TRouter][TProcedure]>[TProperty];
+    : NonNullable<RouterOutputs[TRouter][TProcedure]>[TProperty];
 
 /**
  * Extract a deeply nested property type from a router output
@@ -72,61 +72,67 @@ export type GetNestedType<
  * type Exercise = GetDeepNestedType<'workoutPlan', 'getWorkout', ['WorkoutBlock', 'exercisePlanning', 'exercise'], true>
  */
 export type GetDeepNestedType<
-  TRouter extends keyof RouterOutputs,
-  TProcedure extends keyof RouterOutputs[TRouter],
-  TPath extends readonly string[],
-  TSingleItem extends boolean = false
+    TRouter extends keyof RouterOutputs,
+    TProcedure extends keyof RouterOutputs[TRouter],
+    TPath extends readonly string[],
+    TSingleItem extends boolean = false
 > = TPath extends readonly [infer First, ...infer Rest]
-  ? First extends keyof NonNullable<RouterOutputs[TRouter][TProcedure]>
+    ? First extends keyof NonNullable<RouterOutputs[TRouter][TProcedure]>
     ? Rest extends readonly string[]
-      ? GetDeepNestedType<
-          TRouter,
-          TProcedure,
-          Rest,
-          TSingleItem
-       > extends never
-        ? NonNullable<RouterOutputs[TRouter][TProcedure]>[First]
-        : GetDeepNestedType<
-            TRouter,
-            TProcedure,
-            Rest,
-            TSingleItem
-          > extends keyof NonNullable<RouterOutputs[TRouter][TProcedure]>[First]
-        ? NonNullable<
-            NonNullable<RouterOutputs[TRouter][TProcedure]>[First]
-          >[GetDeepNestedType<TRouter, TProcedure, Rest, TSingleItem>]
-        : never
-      : NonNullable<RouterOutputs[TRouter][TProcedure]>[First]
+    ? GetDeepNestedType<
+        TRouter,
+        TProcedure,
+        Rest,
+        TSingleItem
+    > extends never
+    ? NonNullable<RouterOutputs[TRouter][TProcedure]>[First]
+    : GetDeepNestedType<
+        TRouter,
+        TProcedure,
+        Rest,
+        TSingleItem
+    > extends keyof NonNullable<RouterOutputs[TRouter][TProcedure]>[First]
+    ? NonNullable<
+        NonNullable<RouterOutputs[TRouter][TProcedure]>[First]
+    >[GetDeepNestedType<TRouter, TProcedure, Rest, TSingleItem>]
     : never
-  : never;
+    : NonNullable<RouterOutputs[TRouter][TProcedure]>[First]
+    : never
+    : never;
 
 // ============================================================================
 // Pre-defined type aliases for common queries
 // ============================================================================
 
 /**
- * WorkoutPlan types
+ * Workout types
  */
-export type WorkoutPlanWithRelations = GetRouterOutput<'workoutPlan', 'getWorkout'>;
-export type WorkoutPlanFromGetAll = GetRouterOutputItem<'workoutPlan', 'getAll'>;
+export type WorkoutWithRelations = GetRouterOutput<'workoutPlan', 'getWorkout'>;
+export type WorkoutFromGetAll = GetRouterOutputItem<'workoutPlan', 'getAll'>;
+// Legacy aliases for backwards compatibility
+export type WorkoutPlanWithRelations = WorkoutWithRelations;
+export type WorkoutPlanFromGetAll = WorkoutFromGetAll;
 export type WorkoutBlockWithRelations = GetNestedType<'workoutPlan', 'getWorkout', 'WorkoutBlock', true>;
 export type ExercisePlanningWithRelations = GetDeepNestedType<
-  'workoutPlan',
-  'getWorkout',
-  ['WorkoutBlock', 'exercisePlanning'],
-  true
+    'workoutPlan',
+    'getWorkout',
+    ['WorkoutBlock', 'exercisePlanning'],
+    true
 >;
 export type ExerciseFromWorkout = GetDeepNestedType<
-  'workoutPlan',
-  'getWorkout',
-  ['WorkoutBlock', 'exercisePlanning', 'exercise'],
-  true
+    'workoutPlan',
+    'getWorkout',
+    ['WorkoutBlock', 'exercisePlanning', 'exercise'],
+    true
 >;
 export type LocationFromWorkout = GetNestedType<'workoutPlan', 'getWorkout', 'location'>;
 
 /**
  * TrainingSession types
  */
+
+export type PersonalWorkoutPlanningOutput = GetRouterOutput<'workoutPlanning', 'getPersonal'>;
+
 export type TrainingSessionWithRelations = GetRouterOutput<'trainingSession', 'getById'>;
 export type TrainingSessionFromGetLatest = GetRouterOutputItem<'trainingSession', 'getLatest'>;
 export type LocationFromTrainingSession = GetNestedType<'trainingSession', 'getById', 'location'>;

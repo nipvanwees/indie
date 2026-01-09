@@ -89,7 +89,7 @@ export const Suggestion = ({block, suggestion}: {
 export const SuggestedExerciseForBlock = ({block}: {block: WorkoutBlock}) => {
     const suggestionQuery = api.exercisePlan.getSuggestions.useQuery({
         blockId: block.id,
-        workoutId: block.workoutPlanId,
+        workoutId: block.workoutId,
         blockPurpose: block.blockPurpose,
     })
 

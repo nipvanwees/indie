@@ -121,7 +121,7 @@ export const exercisePlanRouter = createTRPCRouter({
         }))
     .query(async ({ ctx, input }) => {
         // get workout 
-        const workout = await ctx.db.workoutPlan.findUnique({
+        const workout = await ctx.db.workout.findUnique({
             where: {
                 id: input.workoutId,
             },
@@ -146,7 +146,7 @@ export const exercisePlanRouter = createTRPCRouter({
 
 
         // get similar blocks
-        const similarWorkouts = await ctx.db.workoutPlan.findMany({
+        const similarWorkouts = await ctx.db.workout.findMany({
             where: {
                 id: {
                     not: input.workoutId,

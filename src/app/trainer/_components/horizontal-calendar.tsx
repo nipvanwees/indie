@@ -7,7 +7,9 @@ import { Button } from "~/app/_components/ui/button";
 import { Dialog } from "~/app/_components/ui/dialog";
 import { WorkoutPlanningListDisplay } from "./workout/WorkoutListDisplay";
 import { CreateWorkout } from "./workout/CreateWorkout";
-import type { Locations, WorkoutPlan, WorkoutPlanning } from "@prisma/client";
+import type { Locations, Workout, WorkoutPlanning } from "@prisma/client";
+
+import type { PersonalWorkoutPlanningOutput } from "~/utils/trpc-types";
 
 declare global {
   interface Date {
@@ -39,22 +41,9 @@ const isSameDate = (a: Date, b: Date) => {
 };
 
 const HorizontalCalendar = ({
-  events,
+  workoutPlannings
 }: {
-  events: WorkoutPlanning & {
-    workoutPlan: WorkoutPlan;
-    location: Locations | null;
-  }[];
-//   events: {
-//     id: string;
-//     date: Date;
-//     workoutPlan: {
-//       id: string;
-//       completed: boolean;
-//       name: string;
-//       includeTime: boolean
-//     }
-//  }[];
+  workoutPlannings: PersonalWorkoutPlanningOutput;
 }) => {
   const [dates, setDates] = useState<Date[]>([]);
 
@@ -69,14 +58,14 @@ const HorizontalCalendar = ({
   }, [highlightedDate]);
 
   const eventsOnDate = (date: Date) => {
-    return events.filter((activity) => {
-      return activity.workoutPlan.date && isSameDate(activity.workoutPlan.date, date);
+    return workoutPlannings.filter((planning) => {
+      return planning.date && isSameDate(planning.date, date);
     });
   };
 
   const eventsOnHighlightedDate = useMemo(() => {
     return eventsOnDate(highlightedDate);
-  }, [highlightedDate, events]);
+  }, [highlightedDate, workoutPlannings]);
 
   useEffect(() => {
     // Perform localStorage action
@@ -95,7 +84,6 @@ const HorizontalCalendar = ({
     const date = longAgo
       ? new Date()
       : new Date(localStorage.getItem("selectedDate") || new Date());
-    console.log(date);
     setHighlightedDate(date);
 
     // const today = new Date();
@@ -106,7 +94,6 @@ const HorizontalCalendar = ({
       const highlightedEl = document.getElementById(
         date.toLocaleDateString().split(",")[0] || "",
       );
-      console.log("high", highlightedEl);
       if (highlightedEl)
         highlightedEl.scrollIntoView({
           behavior: "smooth",
@@ -179,7 +166,6 @@ const HorizontalCalendar = ({
         </div>
 
         {dates.map((day) => {
-          console.log("day", day);
           return (
             <div
               key={day.toISOString()}
@@ -205,7 +191,7 @@ const HorizontalCalendar = ({
                         <span className="absolute top-[25px] flex gap-[0.5px]">
                           {eventsOnDate(day).map((i, index) => (
                             <div
-                              className={`h-[6px] w-[6px] rounded-full ${i.workoutPlan.completed ? "bg-green-600" : "bg-red-600"}`}
+                              className={`h-[6px] w-[6px] rounded-full ${i.workout?.completed ? "bg-green-600" : "bg-red-600"}`}
                               key={i.id + index + "subItem"}
                             ></div>
                           ))}
@@ -214,18 +200,6 @@ const HorizontalCalendar = ({
                     </div>
                   </div>
                 </div>
-
-                {/* <div className="relative bottom-[12px] left-[18px] flex max-w-[20px] text-xs lowercase text-black/50">
-                  {eventsOnDate(day)?.length > 0 &&
-                    eventsOnDate(day)?.map((i, index) => (
-                      <div
-                        className="flex-1 border-b border-blue-100"
-                        key={index}
-                      >
-                        HELLO
-                      </div>
-                    ))}
-                </div> */}
 
                 {day.getDate() === 1 ? (
                   <div className="relative bottom-[60px] text-center text-xs text-black/50 lowercase">
@@ -278,7 +252,8 @@ const HorizontalCalendar = ({
         {eventsOnHighlightedDate && eventsOnHighlightedDate.length > 0 ? (
           eventsOnHighlightedDate
             .sort((a, b) => a.date.getTime() - b.date.getTime())
-            .map((i) => <WorkoutPlanningListDisplay key={i.id} workout={i} />)
+            .map((i) => <div key={i.id}>{i.workout?.name}</div>)
+            // .map((i) => <WorkoutPlanningListDisplay key={i.id} workout={i.workout} />)
         ) : (
           <div>
             No events <br />

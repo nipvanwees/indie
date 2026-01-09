@@ -252,8 +252,7 @@ const HorizontalCalendar = ({
         {eventsOnHighlightedDate && eventsOnHighlightedDate.length > 0 ? (
           eventsOnHighlightedDate
             .sort((a, b) => a.date.getTime() - b.date.getTime())
-            .map((i) => <div key={i.id}>{i.workout?.name}</div>)
-            // .map((i) => <WorkoutPlanningListDisplay key={i.id} workout={i.workout} />)
+            .map((i) => <WorkoutPlanningListDisplay key={i.id} workoutPlanning={i} />)
         ) : (
           <div>
             No events <br />

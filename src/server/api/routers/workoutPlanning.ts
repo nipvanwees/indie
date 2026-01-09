@@ -30,5 +30,25 @@ export const workoutPlanningRouter = createTRPCRouter({
                     location: true
                 }
             })
+        }),
+
+    update: publicProcedure
+        .input(z.object({
+            id: z.string(),
+            date: z.date(),
+            includeTime: z.boolean(),
+            locationId: z.string().nullable()
+        }))
+        .mutation(async ({ ctx, input }) => {
+            return await ctx.db.workoutPlanning.update({
+                where: {
+                    id: input.id
+                },
+                data: {
+                    date: input.date,
+                    includeTime: input.includeTime,
+                    locationId: input.locationId
+                }
+            });
         })
 });

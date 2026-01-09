@@ -5,13 +5,13 @@ import { RepStyle } from "@prisma/client";
 export const utilsRouter = createTRPCRouter({
 
     fromPlanToPlanning: publicProcedure
-     .mutation(async ({ ctx }) => {
-        const plannings = await ctx.db.workout.findMany();
+        .mutation(async ({ ctx }) => {
+            const plannings = await ctx.db.workout.findMany();
 
-        // async loop over all plannings
-            for(const plan of plannings) {
+            // async loop over all plannings
+            for (const plan of plannings) {
                 // check if planning already exists
-                if(!plan.date) {
+                if (!plan.date) {
                     return
                 }
                 const check = await ctx.db.workoutPlanning.findFirst({
@@ -21,7 +21,7 @@ export const utilsRouter = createTRPCRouter({
                     }
                 })
 
-                if(check) {
+                if (check) {
                     console.log("already existss this one..")
                     continue
                 } else {
@@ -37,7 +37,7 @@ export const utilsRouter = createTRPCRouter({
                 }
             }
 
-     }),
+        }),
 
     fixTypes: publicProcedure
         .mutation(async ({ ctx }) => {
@@ -59,7 +59,7 @@ export const utilsRouter = createTRPCRouter({
                 }
             });
 
-             await ctx.db.exercisePlanning.updateMany({
+            await ctx.db.exercisePlanning.updateMany({
                 where: {
                     repStyle: "distance"
                 },
@@ -69,7 +69,7 @@ export const utilsRouter = createTRPCRouter({
             });
 
         }),
-    })
+})
 
 
 

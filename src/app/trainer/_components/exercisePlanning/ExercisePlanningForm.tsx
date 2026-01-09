@@ -7,7 +7,7 @@ import { Button } from "~/app/_components/ui/button"
 import { Select } from "~/app/_components/ui/select"
 import { Input } from "~/app/_components/ui/input"
 import { Textarea } from "~/app/_components/ui/textarea"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { Checkbox, CheckboxField } from "~/app/_components/ui/checkbox"
 import { Switch } from "~/app/_components/ui/switch"
 import { DisplayExerciseName } from "~/app/_components/exercise/DisplayExerciseName"
@@ -15,6 +15,7 @@ import { PreviouslyPlanned } from "./Previouslyplanned"
 import { set } from "zod"
 import type { Exercise, ExercisePlanning, PlanningAlternative, Rounds, WorkoutBlock } from "@prisma/client";
 import { AlternativeType, RepStyle, TimeStyle, Unilateral, UnilateralExecution } from "@prisma/client";
+import { parseExercisePlanningInput, type ParsedExercisePlanningInput } from "~/utils/exercise-planning-parser";
   
 interface ExercisePlanningForm {
     exerciseId: string,
@@ -69,6 +70,13 @@ export const ExercisePlanningForm = ({
 ) => {
   console.log("ExercisePlanningForm", exercisePlanning)
 
+  const [smartInput, setSmartInput] = useState<string>("");
+
+  // Parse smart input in real-time
+  const parsed: ParsedExercisePlanningInput = useMemo(() => {
+    return parseExercisePlanningInput(smartInput);
+  }, [smartInput]);
+
     const {handleSubmit, control, reset, register, watch, setValue, getValues} = useForm<ExercisePlanningForm>({
         defaultValues: {
             exerciseId: exercisePlanning?.exerciseId,
@@ -110,6 +118,48 @@ export const ExercisePlanningForm = ({
 
         }
 })
+
+  // Update form fields when parsed values change
+  useEffect(() => {
+    if (parsed.minReps !== undefined) {
+      setValue("minReps", parsed.minReps);
+      if (parsed.maxReps === undefined) {
+        // If only minReps is set, enable rep range but don't set maxReps
+        setValue("useRepRange", false);
+      }
+    }
+    if (parsed.maxReps !== undefined) {
+      setValue("maxReps", parsed.maxReps);
+      setValue("useRepRange", true);
+    }
+    if (parsed.repType) {
+      setValue("repType", parsed.repType);
+    }
+    if (parsed.time !== undefined) {
+      setValue("repType", RepStyle.TIME);
+      // Note: time is not directly stored in ExercisePlanning, it's in rounds
+      // We'll handle this in the form submission if needed
+    }
+    if (parsed.calories !== undefined) {
+      setValue("repType", RepStyle.CALORIES);
+    }
+    if (parsed.useRx !== undefined) {
+      setValue("useRx", parsed.useRx);
+    }
+    if (parsed.rxM !== undefined) {
+      setValue("rxM", parsed.rxM);
+      if (parsed.rxF !== undefined) {
+        setValue("rxDouble", true);
+      }
+    }
+    if (parsed.rxF !== undefined) {
+      setValue("rxF", parsed.rxF);
+      setValue("rxDouble", true);
+    }
+    if (parsed.maxEffort !== undefined) {
+      setValue("maxEffort", parsed.maxEffort);
+    }
+  }, [parsed, setValue]);
 
     const useRepRange = watch("useRepRange")
     const repType = watch("repType")
@@ -235,6 +285,35 @@ export const ExercisePlanningForm = ({
                    : null
                   }
               </div>
+
+            {exercise && !workoutBlock.specifyRepsPerRound && (
+              <Field className="mt-3">
+                <Label>
+                  Smart Input{" "}
+                  <span className="text-xs text-white/50">
+                    (e.g., &quot;3-5x&quot;, &quot;rx28/20&quot;, &quot;45s&quot;, &quot;m.e. calories&quot;)
+                  </span>
+                </Label>
+                <Input
+                  type="text"
+                  value={smartInput}
+                  onChange={(e) => setSmartInput(e.target.value)}
+                  placeholder='Try: "3-5x", "rx28/20", "45s", "m.e. calories"'
+                />
+                {smartInput && (
+                  <p className="mt-1 text-xs text-white/60">
+                    {parsed.repType && `Rep Type: ${parsed.repType}`}
+                    {parsed.minReps !== undefined && ` | Min Reps: ${parsed.minReps}`}
+                    {parsed.maxReps !== undefined && ` | Max Reps: ${parsed.maxReps}`}
+                    {parsed.time !== undefined && ` | Time: ${parsed.time}s`}
+                    {parsed.calories !== undefined && ` | Calories: ${parsed.calories}`}
+                    {parsed.useRx && ` | RX: ${parsed.rxM ?? ""}${parsed.rxF !== undefined ? `/${parsed.rxF}` : ""}`}
+                    {parsed.maxEffort && ` | Max Effort`}
+                    {!parsed.repType && !parsed.minReps && !parsed.maxReps && !parsed.time && !parsed.calories && !parsed.useRx && !parsed.maxEffort && "No values parsed"}
+                  </p>
+                )}
+              </Field>
+            )}
     
             <div className="flex gap-3 mt-3">
 

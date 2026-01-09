@@ -16,18 +16,18 @@ import { BsEye } from "react-icons/bs";
 import { Dialog, DialogBody, DialogTitle } from "~/app/_components/ui/dialog";
 import { useState } from "react";
 import { CopyCreateWorkout } from "./CopyCreateWorkout";
+import { EditWorkoutPlanning } from "./EditWorkoutPlanning";
+import type { PersonalWorkoutPlanningOutput } from "~/utils/trpc-types";
 
 export const WorkoutPlanningListDisplay = ({
-  workout,
+  workoutPlanning,
 }: {
-  workout: WorkoutPlanning & {
-    workout: Workout,
-    location: Locations | null;
-  };
+  workoutPlanning: PersonalWorkoutPlanningOutput[0];
 }) => {
   const utils = api.useUtils();
 
   const [copyOpen, setCopyOpen] = useState(false);
+  const [editPlanningOpen, setEditPlanningOpen] = useState(false);
 
   const deleteMutation = api.workoutPlan.delete.useMutation({
     onSuccess: async () => {
@@ -49,26 +49,26 @@ export const WorkoutPlanningListDisplay = ({
 
   return (
     <li
-      key={workout.id}
+      key={workoutPlanning.id}
       className="flex items-center justify-between gap-x-6 py-5 odd:bg-slate-50 p-2"
     >
       <div className="min-w-0">
         <div className="flex items-start gap-x-3">
           <p className="text-sm/6 font-semibold text-gray-900">
-            {workout.workout.name}
+            {workoutPlanning.workout?.name ?? "No workout"}
           </p>
         </div>
 
         <div className="mt-1 flex items-center gap-x-2 text-xs/5 text-gray-500">
           <p className="whitespace-nowrap">
-            {workout.includeTime ? 
-            workout.date?.toLocaleString() : workout.date?.toLocaleDateString()}
+            {workoutPlanning.includeTime ? 
+            workoutPlanning.date?.toLocaleString() : workoutPlanning.date?.toLocaleDateString()}
             {/* Due on <time dateTime={workout.dueDateTime}>{workout.dueDate}</time> */}
           </p>
           <svg viewBox="0 0 2 2" className="size-0.5 fill-current">
             <circle r={1} cx={1} cy={1} />
           </svg>
-          {workout.workout.completed ? (
+          {workoutPlanning.workout?.completed ? (
             <Badge color="green" className="text-xs/5">
               completed
             </Badge>
@@ -80,7 +80,7 @@ export const WorkoutPlanningListDisplay = ({
         </div>
         <div className="mt-1 flex items-center gap-x-2 text-xs/5 text-gray-500">
           <p className="whitespace-nowrap">
-            {workout.location?.name}
+            {workoutPlanning.location?.name}
             {/* Due on <time dateTime={workout.dueDateTime}>{workout.dueDate}</time> */}
           </p>
         </div>
@@ -93,22 +93,24 @@ export const WorkoutPlanningListDisplay = ({
             {/* <EllipsisVerticalIcon aria-hidden="true" className="size-5" /> */}
           </DropdownButton>
           <DropdownMenu transition>
-            <DropdownItem>
-              <a href={`/workout/edit/${workout.workoutId}`} className="flex gap-2 items-center">
+            <DropdownItem onClick={() => setEditPlanningOpen(true)}>
+              <div className="flex gap-2 items-center">
                 <MdCalendarMonth />
-                Edit planning<span className="sr-only">, {workout.workout.name}</span>
-              </a>
+                Edit planning<span className="sr-only">, {workoutPlanning.workout?.name ?? "workout"}</span>
+              </div>
             </DropdownItem>
+            <DropdownDivider />
           <DropdownItem>
-              <a href={`/teacher/show/${workout.id}`} className="flex gap-2 items-center">
+
+              <a href={`/trainer/workout/show/${workoutPlanning.id}`} className="flex gap-2 items-center">
               <BsEye />
-                View workout<span className="sr-only">, {workout.workout.name}</span>
+                View workout<span className="sr-only">, {workoutPlanning.workout?.name}</span>
               </a>
             </DropdownItem>
             <DropdownItem>
-              <a href={`/workout/edit/${workout.workoutId}`} className="flex gap-2 items-center">
+              <a href={`/trainer/workout/edit/${workoutPlanning.workoutId}`} className="flex gap-2 items-center">
                 <MdEdit />
-                Edit workout<span className="sr-only">, {workout.workout.name}</span>
+                Edit workout<span className="sr-only">, {workoutPlanning.workout?.name}</span>
               </a>
             </DropdownItem>
          
@@ -126,9 +128,9 @@ export const WorkoutPlanningListDisplay = ({
 
             <DropdownDivider />
             <DropdownItem>
-              <a onClick={() => deletePlan(workout.id)} className="flex gap-2 items-center">
+              <a onClick={() => deletePlan(workoutPlanning.id)} className="flex gap-2 items-center">
                 <MdDelete  />
-                Delete<span className="sr-only">, {workout.workout.name}</span>
+                Delete<span className="sr-only">, {workoutPlanning.workout?.name}</span>
               </a>
             </DropdownItem>
           </DropdownMenu>
@@ -138,7 +140,19 @@ export const WorkoutPlanningListDisplay = ({
       <Dialog open={copyOpen} onClose={() => setCopyOpen(false)}>
         <DialogTitle>Copy and edit</DialogTitle>
         <DialogBody>
-          <CopyCreateWorkout copyId={workout.workoutId} />
+          {workoutPlanning.workoutId && (
+            <CopyCreateWorkout copyId={workoutPlanning.workoutId} />
+          )}
+        </DialogBody>
+      </Dialog>
+
+      <Dialog open={editPlanningOpen} onClose={() => setEditPlanningOpen(false)}>
+        <DialogTitle>Edit Workout Planning</DialogTitle>
+        <DialogBody>
+          <EditWorkoutPlanning
+            workoutPlanning={workoutPlanning}
+            onSuccess={() => setEditPlanningOpen(false)}
+          />
         </DialogBody>
       </Dialog>
     </li>

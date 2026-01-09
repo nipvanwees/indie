@@ -8,8 +8,10 @@ import { useState } from "react";
 
 export const SelectLocation = ({
   onSelect,
+  defaultValue,
 }: {
   onSelect: (location: Locations | null) => void;
+  defaultValue?: string | null;
 }) => {
   // fetch locations
   const [open, setOpen] = useState(false);
@@ -26,7 +28,7 @@ export const SelectLocation = ({
             );
             onSelect(selectedLocation ?? null);
           }}
-          defaultValue={""}
+          defaultValue={defaultValue ?? ""}
         >
           <option value="">Select a location</option>
           {locationQuery.data?.map((location) => (

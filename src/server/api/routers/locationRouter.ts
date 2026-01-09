@@ -23,7 +23,7 @@ export const locationRouter = createTRPCRouter({
                 },
             });
         }
-    ),
+        ),
 
     connectToWorkout: publicProcedure
         .input(z.object({
@@ -40,6 +40,6 @@ export const locationRouter = createTRPCRouter({
                 },
             });
         }
-    ),
+        ),
 
 });

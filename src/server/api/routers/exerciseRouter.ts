@@ -11,8 +11,8 @@ export const exerciseRouter = createTRPCRouter({
             return exercises
         }),
 
-        create: publicProcedure
-        .input(z.object({ 
+    create: publicProcedure
+        .input(z.object({
             name: z.string().min(1),
             notes: z.string().optional(),
             unilateral: z.nativeEnum(Unilateral).optional()
@@ -26,6 +26,8 @@ export const exerciseRouter = createTRPCRouter({
                 },
             });
         }),
+
+
 
     getById: publicProcedure
         .input(z.object({
@@ -49,8 +51,7 @@ export const exerciseRouter = createTRPCRouter({
 
             return exercise;
         }
-    ),
+        ),
 });
 
-    
-        
+

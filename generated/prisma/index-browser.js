@@ -181,6 +181,7 @@ exports.Prisma.LocationsScalarFieldEnum = {
 
 exports.Prisma.WorkoutPlanningScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   date: 'date',
   includeTime: 'includeTime',
   locationId: 'locationId',
@@ -368,6 +369,7 @@ exports.Prisma.LocationsOrderByRelevanceFieldEnum = {
 
 exports.Prisma.WorkoutPlanningOrderByRelevanceFieldEnum = {
   id: 'id',
+  userId: 'userId',
   locationId: 'locationId',
   workoutPlanId: 'workoutPlanId'
 };

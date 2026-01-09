@@ -7,6 +7,7 @@ import { Button } from "~/app/_components/ui/button";
 import { Dialog } from "~/app/_components/ui/dialog";
 import { WorkoutPlanningListDisplay } from "./workout/WorkoutListDisplay";
 import { CreateWorkout } from "./workout/CreateWorkout";
+import type { Locations, WorkoutPlan, WorkoutPlanning } from "@prisma/client";
 
 declare global {
   interface Date {
@@ -40,16 +41,20 @@ const isSameDate = (a: Date, b: Date) => {
 const HorizontalCalendar = ({
   events,
 }: {
-  events: {
-    id: string;
-    date: Date;
-    workoutPlan: {
-      id: string;
-      completed: boolean;
-      name: string;
-      includeTime: boolean
-    }
- }[];
+  events: WorkoutPlanning & {
+    workoutPlan: WorkoutPlan;
+    location: Locations | null;
+  }[];
+//   events: {
+//     id: string;
+//     date: Date;
+//     workoutPlan: {
+//       id: string;
+//       completed: boolean;
+//       name: string;
+//       includeTime: boolean
+//     }
+//  }[];
 }) => {
   const [dates, setDates] = useState<Date[]>([]);
 
@@ -65,7 +70,7 @@ const HorizontalCalendar = ({
 
   const eventsOnDate = (date: Date) => {
     return events.filter((activity) => {
-      return isSameDate(activity.date, date);
+      return activity.workoutPlan.date && isSameDate(activity.workoutPlan.date, date);
     });
   };
 

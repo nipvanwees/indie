@@ -109,7 +109,7 @@ const WorkoutPlan = ({ id }: { id: string }) => {
       </div>
 
       <Divider className="my-2"/>
-      {workout.WorkoutBlock.map((block: typeof workout.WorkoutBlock[0], index: number) => (
+      {workout.WorkoutBlock.map((block) => (
         <EditBlock block={block} key={block.id}>
           <></>
           </EditBlock>

@@ -2,7 +2,7 @@ import { closestCenter, DndContext, PointerSensor, TouchSensor, useSensor, useSe
 import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { useState } from "react";
 import { CSS } from '@dnd-kit/utilities';
-import { Button } from "../ui/button";
+import { Button } from "~/app/_components/ui/button";
 
 const ArrangeBlock = ({id, text, order}: {
     id: string;

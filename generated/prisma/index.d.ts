@@ -2085,6 +2085,7 @@ export namespace Prisma {
     exercises: number
     logs: number
     trainingSessions: number
+    workoutPlannings: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2095,6 +2096,7 @@ export namespace Prisma {
     exercises?: boolean | UserCountOutputTypeCountExercisesArgs
     logs?: boolean | UserCountOutputTypeCountLogsArgs
     trainingSessions?: boolean | UserCountOutputTypeCountTrainingSessionsArgs
+    workoutPlannings?: boolean | UserCountOutputTypeCountWorkoutPlanningsArgs
   }
 
   // Custom InputTypes
@@ -2155,6 +2157,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountTrainingSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TrainingSessionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWorkoutPlanningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WorkoutPlanningWhereInput
   }
 
 
@@ -2645,6 +2654,7 @@ export namespace Prisma {
     exercises?: boolean | User$exercisesArgs<ExtArgs>
     logs?: boolean | User$logsArgs<ExtArgs>
     trainingSessions?: boolean | User$trainingSessionsArgs<ExtArgs>
+    workoutPlannings?: boolean | User$workoutPlanningsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2671,6 +2681,7 @@ export namespace Prisma {
     exercises?: boolean | User$exercisesArgs<ExtArgs>
     logs?: boolean | User$logsArgs<ExtArgs>
     trainingSessions?: boolean | User$trainingSessionsArgs<ExtArgs>
+    workoutPlannings?: boolean | User$workoutPlanningsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2684,6 +2695,7 @@ export namespace Prisma {
       exercises: Prisma.$ExercisePayload<ExtArgs>[]
       logs: Prisma.$LogPayload<ExtArgs>[]
       trainingSessions: Prisma.$TrainingSessionPayload<ExtArgs>[]
+      workoutPlannings: Prisma.$WorkoutPlanningPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3042,6 +3054,7 @@ export namespace Prisma {
     exercises<T extends User$exercisesArgs<ExtArgs> = {}>(args?: Subset<T, User$exercisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     logs<T extends User$logsArgs<ExtArgs> = {}>(args?: Subset<T, User$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     trainingSessions<T extends User$trainingSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$trainingSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrainingSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    workoutPlannings<T extends User$workoutPlanningsArgs<ExtArgs> = {}>(args?: Subset<T, User$workoutPlanningsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkoutPlanningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3588,6 +3601,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TrainingSessionScalarFieldEnum | TrainingSessionScalarFieldEnum[]
+  }
+
+  /**
+   * User.workoutPlannings
+   */
+  export type User$workoutPlanningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkoutPlanning
+     */
+    select?: WorkoutPlanningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkoutPlanning
+     */
+    omit?: WorkoutPlanningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkoutPlanningInclude<ExtArgs> | null
+    where?: WorkoutPlanningWhereInput
+    orderBy?: WorkoutPlanningOrderByWithRelationInput | WorkoutPlanningOrderByWithRelationInput[]
+    cursor?: WorkoutPlanningWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WorkoutPlanningScalarFieldEnum | WorkoutPlanningScalarFieldEnum[]
   }
 
   /**
@@ -7630,6 +7667,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningMinAggregateOutputType = {
     id: string | null
+    userId: string | null
     date: Date | null
     includeTime: boolean | null
     locationId: string | null
@@ -7638,6 +7676,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningMaxAggregateOutputType = {
     id: string | null
+    userId: string | null
     date: Date | null
     includeTime: boolean | null
     locationId: string | null
@@ -7646,6 +7685,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningCountAggregateOutputType = {
     id: number
+    userId: number
     date: number
     includeTime: number
     locationId: number
@@ -7656,6 +7696,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningMinAggregateInputType = {
     id?: true
+    userId?: true
     date?: true
     includeTime?: true
     locationId?: true
@@ -7664,6 +7705,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningMaxAggregateInputType = {
     id?: true
+    userId?: true
     date?: true
     includeTime?: true
     locationId?: true
@@ -7672,6 +7714,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningCountAggregateInputType = {
     id?: true
+    userId?: true
     date?: true
     includeTime?: true
     locationId?: true
@@ -7753,6 +7796,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningGroupByOutputType = {
     id: string
+    userId: string | null
     date: Date
     includeTime: boolean
     locationId: string | null
@@ -7778,10 +7822,12 @@ export namespace Prisma {
 
   export type WorkoutPlanningSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     date?: boolean
     includeTime?: boolean
     locationId?: boolean
     workoutPlanId?: boolean
+    user?: boolean | WorkoutPlanning$userArgs<ExtArgs>
     location?: boolean | WorkoutPlanning$locationArgs<ExtArgs>
     workoutPlan?: boolean | WorkoutPlanDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["workoutPlanning"]>
@@ -7790,14 +7836,16 @@ export namespace Prisma {
 
   export type WorkoutPlanningSelectScalar = {
     id?: boolean
+    userId?: boolean
     date?: boolean
     includeTime?: boolean
     locationId?: boolean
     workoutPlanId?: boolean
   }
 
-  export type WorkoutPlanningOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "includeTime" | "locationId" | "workoutPlanId", ExtArgs["result"]["workoutPlanning"]>
+  export type WorkoutPlanningOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "includeTime" | "locationId" | "workoutPlanId", ExtArgs["result"]["workoutPlanning"]>
   export type WorkoutPlanningInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | WorkoutPlanning$userArgs<ExtArgs>
     location?: boolean | WorkoutPlanning$locationArgs<ExtArgs>
     workoutPlan?: boolean | WorkoutPlanDefaultArgs<ExtArgs>
   }
@@ -7805,11 +7853,13 @@ export namespace Prisma {
   export type $WorkoutPlanningPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "WorkoutPlanning"
     objects: {
+      user: Prisma.$UserPayload<ExtArgs> | null
       location: Prisma.$LocationsPayload<ExtArgs> | null
       workoutPlan: Prisma.$WorkoutPlanPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      userId: string | null
       date: Date
       includeTime: boolean
       locationId: string | null
@@ -8154,6 +8204,7 @@ export namespace Prisma {
    */
   export interface Prisma__WorkoutPlanningClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends WorkoutPlanning$userArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutPlanning$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     location<T extends WorkoutPlanning$locationArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutPlanning$locationArgs<ExtArgs>>): Prisma__LocationsClient<$Result.GetResult<Prisma.$LocationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     workoutPlan<T extends WorkoutPlanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkoutPlanDefaultArgs<ExtArgs>>): Prisma__WorkoutPlanClient<$Result.GetResult<Prisma.$WorkoutPlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -8186,6 +8237,7 @@ export namespace Prisma {
    */
   interface WorkoutPlanningFieldRefs {
     readonly id: FieldRef<"WorkoutPlanning", 'String'>
+    readonly userId: FieldRef<"WorkoutPlanning", 'String'>
     readonly date: FieldRef<"WorkoutPlanning", 'DateTime'>
     readonly includeTime: FieldRef<"WorkoutPlanning", 'Boolean'>
     readonly locationId: FieldRef<"WorkoutPlanning", 'String'>
@@ -8530,6 +8582,25 @@ export namespace Prisma {
      * Limit how many WorkoutPlannings to delete.
      */
     limit?: number
+  }
+
+  /**
+   * WorkoutPlanning.user
+   */
+  export type WorkoutPlanning$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -17483,6 +17554,7 @@ export namespace Prisma {
 
   export const WorkoutPlanningScalarFieldEnum: {
     id: 'id',
+    userId: 'userId',
     date: 'date',
     includeTime: 'includeTime',
     locationId: 'locationId',
@@ -17718,6 +17790,7 @@ export namespace Prisma {
 
   export const WorkoutPlanningOrderByRelevanceFieldEnum: {
     id: 'id',
+    userId: 'userId',
     locationId: 'locationId',
     workoutPlanId: 'workoutPlanId'
   };
@@ -17935,6 +18008,7 @@ export namespace Prisma {
     exercises?: ExerciseListRelationFilter
     logs?: LogListRelationFilter
     trainingSessions?: TrainingSessionListRelationFilter
+    workoutPlannings?: WorkoutPlanningListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -17954,6 +18028,7 @@ export namespace Prisma {
     exercises?: ExerciseOrderByRelationAggregateInput
     logs?: LogOrderByRelationAggregateInput
     trainingSessions?: TrainingSessionOrderByRelationAggregateInput
+    workoutPlannings?: WorkoutPlanningOrderByRelationAggregateInput
     _relevance?: UserOrderByRelevanceInput
   }
 
@@ -17977,6 +18052,7 @@ export namespace Prisma {
     exercises?: ExerciseListRelationFilter
     logs?: LogListRelationFilter
     trainingSessions?: TrainingSessionListRelationFilter
+    workoutPlannings?: WorkoutPlanningListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -18323,20 +18399,24 @@ export namespace Prisma {
     OR?: WorkoutPlanningWhereInput[]
     NOT?: WorkoutPlanningWhereInput | WorkoutPlanningWhereInput[]
     id?: StringFilter<"WorkoutPlanning"> | string
+    userId?: StringNullableFilter<"WorkoutPlanning"> | string | null
     date?: DateTimeFilter<"WorkoutPlanning"> | Date | string
     includeTime?: BoolFilter<"WorkoutPlanning"> | boolean
     locationId?: StringNullableFilter<"WorkoutPlanning"> | string | null
     workoutPlanId?: StringFilter<"WorkoutPlanning"> | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     location?: XOR<LocationsNullableScalarRelationFilter, LocationsWhereInput> | null
     workoutPlan?: XOR<WorkoutPlanScalarRelationFilter, WorkoutPlanWhereInput>
   }
 
   export type WorkoutPlanningOrderByWithRelationInput = {
     id?: SortOrder
+    userId?: SortOrderInput | SortOrder
     date?: SortOrder
     includeTime?: SortOrder
     locationId?: SortOrderInput | SortOrder
     workoutPlanId?: SortOrder
+    user?: UserOrderByWithRelationInput
     location?: LocationsOrderByWithRelationInput
     workoutPlan?: WorkoutPlanOrderByWithRelationInput
     _relevance?: WorkoutPlanningOrderByRelevanceInput
@@ -18347,16 +18427,19 @@ export namespace Prisma {
     AND?: WorkoutPlanningWhereInput | WorkoutPlanningWhereInput[]
     OR?: WorkoutPlanningWhereInput[]
     NOT?: WorkoutPlanningWhereInput | WorkoutPlanningWhereInput[]
+    userId?: StringNullableFilter<"WorkoutPlanning"> | string | null
     date?: DateTimeFilter<"WorkoutPlanning"> | Date | string
     includeTime?: BoolFilter<"WorkoutPlanning"> | boolean
     locationId?: StringNullableFilter<"WorkoutPlanning"> | string | null
     workoutPlanId?: StringFilter<"WorkoutPlanning"> | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     location?: XOR<LocationsNullableScalarRelationFilter, LocationsWhereInput> | null
     workoutPlan?: XOR<WorkoutPlanScalarRelationFilter, WorkoutPlanWhereInput>
   }, "id">
 
   export type WorkoutPlanningOrderByWithAggregationInput = {
     id?: SortOrder
+    userId?: SortOrderInput | SortOrder
     date?: SortOrder
     includeTime?: SortOrder
     locationId?: SortOrderInput | SortOrder
@@ -18371,6 +18454,7 @@ export namespace Prisma {
     OR?: WorkoutPlanningScalarWhereWithAggregatesInput[]
     NOT?: WorkoutPlanningScalarWhereWithAggregatesInput | WorkoutPlanningScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"WorkoutPlanning"> | string
+    userId?: StringNullableWithAggregatesFilter<"WorkoutPlanning"> | string | null
     date?: DateTimeWithAggregatesFilter<"WorkoutPlanning"> | Date | string
     includeTime?: BoolWithAggregatesFilter<"WorkoutPlanning"> | boolean
     locationId?: StringNullableWithAggregatesFilter<"WorkoutPlanning"> | string | null
@@ -19225,6 +19309,7 @@ export namespace Prisma {
     exercises?: ExerciseCreateNestedManyWithoutCreatedByInput
     logs?: LogCreateNestedManyWithoutUserInput
     trainingSessions?: TrainingSessionCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -19244,6 +19329,7 @@ export namespace Prisma {
     exercises?: ExerciseUncheckedCreateNestedManyWithoutCreatedByInput
     logs?: LogUncheckedCreateNestedManyWithoutUserInput
     trainingSessions?: TrainingSessionUncheckedCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -19263,6 +19349,7 @@ export namespace Prisma {
     exercises?: ExerciseUpdateManyWithoutCreatedByNestedInput
     logs?: LogUpdateManyWithoutUserNestedInput
     trainingSessions?: TrainingSessionUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -19282,6 +19369,7 @@ export namespace Prisma {
     exercises?: ExerciseUncheckedUpdateManyWithoutCreatedByNestedInput
     logs?: LogUncheckedUpdateManyWithoutUserNestedInput
     trainingSessions?: TrainingSessionUncheckedUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -19662,12 +19750,14 @@ export namespace Prisma {
     id?: string
     date: Date | string
     includeTime?: boolean
+    user?: UserCreateNestedOneWithoutWorkoutPlanningsInput
     location?: LocationsCreateNestedOneWithoutWorkoutPlanningInput
     workoutPlan: WorkoutPlanCreateNestedOneWithoutWorkoutPlanningInput
   }
 
   export type WorkoutPlanningUncheckedCreateInput = {
     id?: string
+    userId?: string | null
     date: Date | string
     includeTime?: boolean
     locationId?: string | null
@@ -19678,12 +19768,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     includeTime?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneWithoutWorkoutPlanningsNestedInput
     location?: LocationsUpdateOneWithoutWorkoutPlanningNestedInput
     workoutPlan?: WorkoutPlanUpdateOneRequiredWithoutWorkoutPlanningNestedInput
   }
 
   export type WorkoutPlanningUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     includeTime?: BoolFieldUpdateOperationsInput | boolean
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19692,6 +19784,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningCreateManyInput = {
     id?: string
+    userId?: string | null
     date: Date | string
     includeTime?: boolean
     locationId?: string | null
@@ -19706,6 +19799,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     includeTime?: BoolFieldUpdateOperationsInput | boolean
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20724,6 +20818,12 @@ export namespace Prisma {
     none?: TrainingSessionWhereInput
   }
 
+  export type WorkoutPlanningListRelationFilter = {
+    every?: WorkoutPlanningWhereInput
+    some?: WorkoutPlanningWhereInput
+    none?: WorkoutPlanningWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -20754,6 +20854,10 @@ export namespace Prisma {
   }
 
   export type TrainingSessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WorkoutPlanningOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21026,16 +21130,6 @@ export namespace Prisma {
     isNot?: UserWhereInput | null
   }
 
-  export type WorkoutPlanningListRelationFilter = {
-    every?: WorkoutPlanningWhereInput
-    some?: WorkoutPlanningWhereInput
-    none?: WorkoutPlanningWhereInput
-  }
-
-  export type WorkoutPlanningOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type LocationsOrderByRelevanceInput = {
     fields: LocationsOrderByRelevanceFieldEnum | LocationsOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -21082,6 +21176,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningCountOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     date?: SortOrder
     includeTime?: SortOrder
     locationId?: SortOrder
@@ -21090,6 +21185,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningMaxOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     date?: SortOrder
     includeTime?: SortOrder
     locationId?: SortOrder
@@ -21098,6 +21194,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningMinOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     date?: SortOrder
     includeTime?: SortOrder
     locationId?: SortOrder
@@ -21982,6 +22079,13 @@ export namespace Prisma {
     connect?: TrainingSessionWhereUniqueInput | TrainingSessionWhereUniqueInput[]
   }
 
+  export type WorkoutPlanningCreateNestedManyWithoutUserInput = {
+    create?: XOR<WorkoutPlanningCreateWithoutUserInput, WorkoutPlanningUncheckedCreateWithoutUserInput> | WorkoutPlanningCreateWithoutUserInput[] | WorkoutPlanningUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WorkoutPlanningCreateOrConnectWithoutUserInput | WorkoutPlanningCreateOrConnectWithoutUserInput[]
+    createMany?: WorkoutPlanningCreateManyUserInputEnvelope
+    connect?: WorkoutPlanningWhereUniqueInput | WorkoutPlanningWhereUniqueInput[]
+  }
+
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -22029,6 +22133,13 @@ export namespace Prisma {
     connectOrCreate?: TrainingSessionCreateOrConnectWithoutUserInput | TrainingSessionCreateOrConnectWithoutUserInput[]
     createMany?: TrainingSessionCreateManyUserInputEnvelope
     connect?: TrainingSessionWhereUniqueInput | TrainingSessionWhereUniqueInput[]
+  }
+
+  export type WorkoutPlanningUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WorkoutPlanningCreateWithoutUserInput, WorkoutPlanningUncheckedCreateWithoutUserInput> | WorkoutPlanningCreateWithoutUserInput[] | WorkoutPlanningUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WorkoutPlanningCreateOrConnectWithoutUserInput | WorkoutPlanningCreateOrConnectWithoutUserInput[]
+    createMany?: WorkoutPlanningCreateManyUserInputEnvelope
+    connect?: WorkoutPlanningWhereUniqueInput | WorkoutPlanningWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -22145,6 +22256,20 @@ export namespace Prisma {
     deleteMany?: TrainingSessionScalarWhereInput | TrainingSessionScalarWhereInput[]
   }
 
+  export type WorkoutPlanningUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WorkoutPlanningCreateWithoutUserInput, WorkoutPlanningUncheckedCreateWithoutUserInput> | WorkoutPlanningCreateWithoutUserInput[] | WorkoutPlanningUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WorkoutPlanningCreateOrConnectWithoutUserInput | WorkoutPlanningCreateOrConnectWithoutUserInput[]
+    upsert?: WorkoutPlanningUpsertWithWhereUniqueWithoutUserInput | WorkoutPlanningUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WorkoutPlanningCreateManyUserInputEnvelope
+    set?: WorkoutPlanningWhereUniqueInput | WorkoutPlanningWhereUniqueInput[]
+    disconnect?: WorkoutPlanningWhereUniqueInput | WorkoutPlanningWhereUniqueInput[]
+    delete?: WorkoutPlanningWhereUniqueInput | WorkoutPlanningWhereUniqueInput[]
+    connect?: WorkoutPlanningWhereUniqueInput | WorkoutPlanningWhereUniqueInput[]
+    update?: WorkoutPlanningUpdateWithWhereUniqueWithoutUserInput | WorkoutPlanningUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WorkoutPlanningUpdateManyWithWhereWithoutUserInput | WorkoutPlanningUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WorkoutPlanningScalarWhereInput | WorkoutPlanningScalarWhereInput[]
+  }
+
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -22241,6 +22366,20 @@ export namespace Prisma {
     update?: TrainingSessionUpdateWithWhereUniqueWithoutUserInput | TrainingSessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: TrainingSessionUpdateManyWithWhereWithoutUserInput | TrainingSessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: TrainingSessionScalarWhereInput | TrainingSessionScalarWhereInput[]
+  }
+
+  export type WorkoutPlanningUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WorkoutPlanningCreateWithoutUserInput, WorkoutPlanningUncheckedCreateWithoutUserInput> | WorkoutPlanningCreateWithoutUserInput[] | WorkoutPlanningUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WorkoutPlanningCreateOrConnectWithoutUserInput | WorkoutPlanningCreateOrConnectWithoutUserInput[]
+    upsert?: WorkoutPlanningUpsertWithWhereUniqueWithoutUserInput | WorkoutPlanningUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WorkoutPlanningCreateManyUserInputEnvelope
+    set?: WorkoutPlanningWhereUniqueInput | WorkoutPlanningWhereUniqueInput[]
+    disconnect?: WorkoutPlanningWhereUniqueInput | WorkoutPlanningWhereUniqueInput[]
+    delete?: WorkoutPlanningWhereUniqueInput | WorkoutPlanningWhereUniqueInput[]
+    connect?: WorkoutPlanningWhereUniqueInput | WorkoutPlanningWhereUniqueInput[]
+    update?: WorkoutPlanningUpdateWithWhereUniqueWithoutUserInput | WorkoutPlanningUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WorkoutPlanningUpdateManyWithWhereWithoutUserInput | WorkoutPlanningUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WorkoutPlanningScalarWhereInput | WorkoutPlanningScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSessionsInput = {
@@ -22517,6 +22656,12 @@ export namespace Prisma {
     deleteMany?: TrainingSessionScalarWhereInput | TrainingSessionScalarWhereInput[]
   }
 
+  export type UserCreateNestedOneWithoutWorkoutPlanningsInput = {
+    create?: XOR<UserCreateWithoutWorkoutPlanningsInput, UserUncheckedCreateWithoutWorkoutPlanningsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWorkoutPlanningsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type LocationsCreateNestedOneWithoutWorkoutPlanningInput = {
     create?: XOR<LocationsCreateWithoutWorkoutPlanningInput, LocationsUncheckedCreateWithoutWorkoutPlanningInput>
     connectOrCreate?: LocationsCreateOrConnectWithoutWorkoutPlanningInput
@@ -22527,6 +22672,16 @@ export namespace Prisma {
     create?: XOR<WorkoutPlanCreateWithoutWorkoutPlanningInput, WorkoutPlanUncheckedCreateWithoutWorkoutPlanningInput>
     connectOrCreate?: WorkoutPlanCreateOrConnectWithoutWorkoutPlanningInput
     connect?: WorkoutPlanWhereUniqueInput
+  }
+
+  export type UserUpdateOneWithoutWorkoutPlanningsNestedInput = {
+    create?: XOR<UserCreateWithoutWorkoutPlanningsInput, UserUncheckedCreateWithoutWorkoutPlanningsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWorkoutPlanningsInput
+    upsert?: UserUpsertWithoutWorkoutPlanningsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWorkoutPlanningsInput, UserUpdateWithoutWorkoutPlanningsInput>, UserUncheckedUpdateWithoutWorkoutPlanningsInput>
   }
 
   export type LocationsUpdateOneWithoutWorkoutPlanningNestedInput = {
@@ -23874,6 +24029,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type WorkoutPlanningCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    includeTime?: boolean
+    location?: LocationsCreateNestedOneWithoutWorkoutPlanningInput
+    workoutPlan: WorkoutPlanCreateNestedOneWithoutWorkoutPlanningInput
+  }
+
+  export type WorkoutPlanningUncheckedCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    includeTime?: boolean
+    locationId?: string | null
+    workoutPlanId: string
+  }
+
+  export type WorkoutPlanningCreateOrConnectWithoutUserInput = {
+    where: WorkoutPlanningWhereUniqueInput
+    create: XOR<WorkoutPlanningCreateWithoutUserInput, WorkoutPlanningUncheckedCreateWithoutUserInput>
+  }
+
+  export type WorkoutPlanningCreateManyUserInputEnvelope = {
+    data: WorkoutPlanningCreateManyUserInput | WorkoutPlanningCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
     where: SessionWhereUniqueInput
     update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
@@ -24105,6 +24286,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"TrainingSession"> | Date | string
   }
 
+  export type WorkoutPlanningUpsertWithWhereUniqueWithoutUserInput = {
+    where: WorkoutPlanningWhereUniqueInput
+    update: XOR<WorkoutPlanningUpdateWithoutUserInput, WorkoutPlanningUncheckedUpdateWithoutUserInput>
+    create: XOR<WorkoutPlanningCreateWithoutUserInput, WorkoutPlanningUncheckedCreateWithoutUserInput>
+  }
+
+  export type WorkoutPlanningUpdateWithWhereUniqueWithoutUserInput = {
+    where: WorkoutPlanningWhereUniqueInput
+    data: XOR<WorkoutPlanningUpdateWithoutUserInput, WorkoutPlanningUncheckedUpdateWithoutUserInput>
+  }
+
+  export type WorkoutPlanningUpdateManyWithWhereWithoutUserInput = {
+    where: WorkoutPlanningScalarWhereInput
+    data: XOR<WorkoutPlanningUpdateManyMutationInput, WorkoutPlanningUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type WorkoutPlanningScalarWhereInput = {
+    AND?: WorkoutPlanningScalarWhereInput | WorkoutPlanningScalarWhereInput[]
+    OR?: WorkoutPlanningScalarWhereInput[]
+    NOT?: WorkoutPlanningScalarWhereInput | WorkoutPlanningScalarWhereInput[]
+    id?: StringFilter<"WorkoutPlanning"> | string
+    userId?: StringNullableFilter<"WorkoutPlanning"> | string | null
+    date?: DateTimeFilter<"WorkoutPlanning"> | Date | string
+    includeTime?: BoolFilter<"WorkoutPlanning"> | boolean
+    locationId?: StringNullableFilter<"WorkoutPlanning"> | string | null
+    workoutPlanId?: StringFilter<"WorkoutPlanning"> | string
+  }
+
   export type UserCreateWithoutSessionsInput = {
     id: string
     name: string
@@ -24121,6 +24330,7 @@ export namespace Prisma {
     exercises?: ExerciseCreateNestedManyWithoutCreatedByInput
     logs?: LogCreateNestedManyWithoutUserInput
     trainingSessions?: TrainingSessionCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -24139,6 +24349,7 @@ export namespace Prisma {
     exercises?: ExerciseUncheckedCreateNestedManyWithoutCreatedByInput
     logs?: LogUncheckedCreateNestedManyWithoutUserInput
     trainingSessions?: TrainingSessionUncheckedCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -24254,6 +24465,7 @@ export namespace Prisma {
     exercises?: ExerciseUpdateManyWithoutCreatedByNestedInput
     logs?: LogUpdateManyWithoutUserNestedInput
     trainingSessions?: TrainingSessionUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -24272,6 +24484,7 @@ export namespace Prisma {
     exercises?: ExerciseUncheckedUpdateManyWithoutCreatedByNestedInput
     logs?: LogUncheckedUpdateManyWithoutUserNestedInput
     trainingSessions?: TrainingSessionUncheckedUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationsUpsertWithoutSessionInput = {
@@ -24341,6 +24554,7 @@ export namespace Prisma {
     exercises?: ExerciseCreateNestedManyWithoutCreatedByInput
     logs?: LogCreateNestedManyWithoutUserInput
     trainingSessions?: TrainingSessionCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -24359,6 +24573,7 @@ export namespace Prisma {
     exercises?: ExerciseUncheckedCreateNestedManyWithoutCreatedByInput
     logs?: LogUncheckedCreateNestedManyWithoutUserInput
     trainingSessions?: TrainingSessionUncheckedCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -24393,6 +24608,7 @@ export namespace Prisma {
     exercises?: ExerciseUpdateManyWithoutCreatedByNestedInput
     logs?: LogUpdateManyWithoutUserNestedInput
     trainingSessions?: TrainingSessionUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -24411,6 +24627,7 @@ export namespace Prisma {
     exercises?: ExerciseUncheckedUpdateManyWithoutCreatedByNestedInput
     logs?: LogUncheckedUpdateManyWithoutUserNestedInput
     trainingSessions?: TrainingSessionUncheckedUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutLocationsInput = {
@@ -24429,6 +24646,7 @@ export namespace Prisma {
     exercises?: ExerciseCreateNestedManyWithoutCreatedByInput
     logs?: LogCreateNestedManyWithoutUserInput
     trainingSessions?: TrainingSessionCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLocationsInput = {
@@ -24447,6 +24665,7 @@ export namespace Prisma {
     exercises?: ExerciseUncheckedCreateNestedManyWithoutCreatedByInput
     logs?: LogUncheckedCreateNestedManyWithoutUserInput
     trainingSessions?: TrainingSessionUncheckedCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLocationsInput = {
@@ -24498,11 +24717,13 @@ export namespace Prisma {
     id?: string
     date: Date | string
     includeTime?: boolean
+    user?: UserCreateNestedOneWithoutWorkoutPlanningsInput
     workoutPlan: WorkoutPlanCreateNestedOneWithoutWorkoutPlanningInput
   }
 
   export type WorkoutPlanningUncheckedCreateWithoutLocationInput = {
     id?: string
+    userId?: string | null
     date: Date | string
     includeTime?: boolean
     workoutPlanId: string
@@ -24617,6 +24838,7 @@ export namespace Prisma {
     exercises?: ExerciseUpdateManyWithoutCreatedByNestedInput
     logs?: LogUpdateManyWithoutUserNestedInput
     trainingSessions?: TrainingSessionUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLocationsInput = {
@@ -24635,6 +24857,7 @@ export namespace Prisma {
     exercises?: ExerciseUncheckedUpdateManyWithoutCreatedByNestedInput
     logs?: LogUncheckedUpdateManyWithoutUserNestedInput
     trainingSessions?: TrainingSessionUncheckedUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkoutPlanUpsertWithWhereUniqueWithoutLocationInput = {
@@ -24669,17 +24892,6 @@ export namespace Prisma {
     data: XOR<WorkoutPlanningUpdateManyMutationInput, WorkoutPlanningUncheckedUpdateManyWithoutLocationInput>
   }
 
-  export type WorkoutPlanningScalarWhereInput = {
-    AND?: WorkoutPlanningScalarWhereInput | WorkoutPlanningScalarWhereInput[]
-    OR?: WorkoutPlanningScalarWhereInput[]
-    NOT?: WorkoutPlanningScalarWhereInput | WorkoutPlanningScalarWhereInput[]
-    id?: StringFilter<"WorkoutPlanning"> | string
-    date?: DateTimeFilter<"WorkoutPlanning"> | Date | string
-    includeTime?: BoolFilter<"WorkoutPlanning"> | boolean
-    locationId?: StringNullableFilter<"WorkoutPlanning"> | string | null
-    workoutPlanId?: StringFilter<"WorkoutPlanning"> | string
-  }
-
   export type SessionUpsertWithWhereUniqueWithoutLocationsInput = {
     where: SessionWhereUniqueInput
     update: XOR<SessionUpdateWithoutLocationsInput, SessionUncheckedUpdateWithoutLocationsInput>
@@ -24710,6 +24922,49 @@ export namespace Prisma {
   export type TrainingSessionUpdateManyWithWhereWithoutLocationInput = {
     where: TrainingSessionScalarWhereInput
     data: XOR<TrainingSessionUpdateManyMutationInput, TrainingSessionUncheckedUpdateManyWithoutLocationInput>
+  }
+
+  export type UserCreateWithoutWorkoutPlanningsInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    athlete?: boolean
+    trainer?: boolean
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    locations?: LocationsCreateNestedManyWithoutUserInput
+    workoutPlans?: WorkoutPlanCreateNestedManyWithoutUserInput
+    exercises?: ExerciseCreateNestedManyWithoutCreatedByInput
+    logs?: LogCreateNestedManyWithoutUserInput
+    trainingSessions?: TrainingSessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutWorkoutPlanningsInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    athlete?: boolean
+    trainer?: boolean
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    locations?: LocationsUncheckedCreateNestedManyWithoutUserInput
+    workoutPlans?: WorkoutPlanUncheckedCreateNestedManyWithoutUserInput
+    exercises?: ExerciseUncheckedCreateNestedManyWithoutCreatedByInput
+    logs?: LogUncheckedCreateNestedManyWithoutUserInput
+    trainingSessions?: TrainingSessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutWorkoutPlanningsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWorkoutPlanningsInput, UserUncheckedCreateWithoutWorkoutPlanningsInput>
   }
 
   export type LocationsCreateWithoutWorkoutPlanningInput = {
@@ -24774,6 +25029,55 @@ export namespace Prisma {
   export type WorkoutPlanCreateOrConnectWithoutWorkoutPlanningInput = {
     where: WorkoutPlanWhereUniqueInput
     create: XOR<WorkoutPlanCreateWithoutWorkoutPlanningInput, WorkoutPlanUncheckedCreateWithoutWorkoutPlanningInput>
+  }
+
+  export type UserUpsertWithoutWorkoutPlanningsInput = {
+    update: XOR<UserUpdateWithoutWorkoutPlanningsInput, UserUncheckedUpdateWithoutWorkoutPlanningsInput>
+    create: XOR<UserCreateWithoutWorkoutPlanningsInput, UserUncheckedCreateWithoutWorkoutPlanningsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWorkoutPlanningsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWorkoutPlanningsInput, UserUncheckedUpdateWithoutWorkoutPlanningsInput>
+  }
+
+  export type UserUpdateWithoutWorkoutPlanningsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    athlete?: BoolFieldUpdateOperationsInput | boolean
+    trainer?: BoolFieldUpdateOperationsInput | boolean
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    locations?: LocationsUpdateManyWithoutUserNestedInput
+    workoutPlans?: WorkoutPlanUpdateManyWithoutUserNestedInput
+    exercises?: ExerciseUpdateManyWithoutCreatedByNestedInput
+    logs?: LogUpdateManyWithoutUserNestedInput
+    trainingSessions?: TrainingSessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWorkoutPlanningsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    athlete?: BoolFieldUpdateOperationsInput | boolean
+    trainer?: BoolFieldUpdateOperationsInput | boolean
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    locations?: LocationsUncheckedUpdateManyWithoutUserNestedInput
+    workoutPlans?: WorkoutPlanUncheckedUpdateManyWithoutUserNestedInput
+    exercises?: ExerciseUncheckedUpdateManyWithoutCreatedByNestedInput
+    logs?: LogUncheckedUpdateManyWithoutUserNestedInput
+    trainingSessions?: TrainingSessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationsUpsertWithoutWorkoutPlanningInput = {
@@ -24897,6 +25201,7 @@ export namespace Prisma {
     exercises?: ExerciseCreateNestedManyWithoutCreatedByInput
     logs?: LogCreateNestedManyWithoutUserInput
     trainingSessions?: TrainingSessionCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkoutPlansInput = {
@@ -24915,6 +25220,7 @@ export namespace Prisma {
     exercises?: ExerciseUncheckedCreateNestedManyWithoutCreatedByInput
     logs?: LogUncheckedCreateNestedManyWithoutUserInput
     trainingSessions?: TrainingSessionUncheckedCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkoutPlansInput = {
@@ -24966,11 +25272,13 @@ export namespace Prisma {
     id?: string
     date: Date | string
     includeTime?: boolean
+    user?: UserCreateNestedOneWithoutWorkoutPlanningsInput
     location?: LocationsCreateNestedOneWithoutWorkoutPlanningInput
   }
 
   export type WorkoutPlanningUncheckedCreateWithoutWorkoutPlanInput = {
     id?: string
+    userId?: string | null
     date: Date | string
     includeTime?: boolean
     locationId?: string | null
@@ -25048,6 +25356,7 @@ export namespace Prisma {
     exercises?: ExerciseUpdateManyWithoutCreatedByNestedInput
     logs?: LogUpdateManyWithoutUserNestedInput
     trainingSessions?: TrainingSessionUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkoutPlansInput = {
@@ -25066,6 +25375,7 @@ export namespace Prisma {
     exercises?: ExerciseUncheckedUpdateManyWithoutCreatedByNestedInput
     logs?: LogUncheckedUpdateManyWithoutUserNestedInput
     trainingSessions?: TrainingSessionUncheckedUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkoutBlockUpsertWithWhereUniqueWithoutWorkoutPlanInput = {
@@ -25938,6 +26248,7 @@ export namespace Prisma {
     workoutPlans?: WorkoutPlanCreateNestedManyWithoutUserInput
     logs?: LogCreateNestedManyWithoutUserInput
     trainingSessions?: TrainingSessionCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutExercisesInput = {
@@ -25956,6 +26267,7 @@ export namespace Prisma {
     workoutPlans?: WorkoutPlanUncheckedCreateNestedManyWithoutUserInput
     logs?: LogUncheckedCreateNestedManyWithoutUserInput
     trainingSessions?: TrainingSessionUncheckedCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutExercisesInput = {
@@ -26142,6 +26454,7 @@ export namespace Prisma {
     workoutPlans?: WorkoutPlanUpdateManyWithoutUserNestedInput
     logs?: LogUpdateManyWithoutUserNestedInput
     trainingSessions?: TrainingSessionUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExercisesInput = {
@@ -26160,6 +26473,7 @@ export namespace Prisma {
     workoutPlans?: WorkoutPlanUncheckedUpdateManyWithoutUserNestedInput
     logs?: LogUncheckedUpdateManyWithoutUserNestedInput
     trainingSessions?: TrainingSessionUncheckedUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LogUpsertWithWhereUniqueWithoutExerciseInput = {
@@ -26257,6 +26571,7 @@ export namespace Prisma {
     workoutPlans?: WorkoutPlanCreateNestedManyWithoutUserInput
     exercises?: ExerciseCreateNestedManyWithoutCreatedByInput
     trainingSessions?: TrainingSessionCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLogsInput = {
@@ -26275,6 +26590,7 @@ export namespace Prisma {
     workoutPlans?: WorkoutPlanUncheckedCreateNestedManyWithoutUserInput
     exercises?: ExerciseUncheckedCreateNestedManyWithoutCreatedByInput
     trainingSessions?: TrainingSessionUncheckedCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLogsInput = {
@@ -26408,6 +26724,7 @@ export namespace Prisma {
     workoutPlans?: WorkoutPlanUpdateManyWithoutUserNestedInput
     exercises?: ExerciseUpdateManyWithoutCreatedByNestedInput
     trainingSessions?: TrainingSessionUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLogsInput = {
@@ -26426,6 +26743,7 @@ export namespace Prisma {
     workoutPlans?: WorkoutPlanUncheckedUpdateManyWithoutUserNestedInput
     exercises?: ExerciseUncheckedUpdateManyWithoutCreatedByNestedInput
     trainingSessions?: TrainingSessionUncheckedUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SessionUpsertWithoutLogsInput = {
@@ -26518,6 +26836,7 @@ export namespace Prisma {
     workoutPlans?: WorkoutPlanCreateNestedManyWithoutUserInput
     exercises?: ExerciseCreateNestedManyWithoutCreatedByInput
     logs?: LogCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTrainingSessionsInput = {
@@ -26536,6 +26855,7 @@ export namespace Prisma {
     workoutPlans?: WorkoutPlanUncheckedCreateNestedManyWithoutUserInput
     exercises?: ExerciseUncheckedCreateNestedManyWithoutCreatedByInput
     logs?: LogUncheckedCreateNestedManyWithoutUserInput
+    workoutPlannings?: WorkoutPlanningUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTrainingSessionsInput = {
@@ -26651,6 +26971,7 @@ export namespace Prisma {
     workoutPlans?: WorkoutPlanUpdateManyWithoutUserNestedInput
     exercises?: ExerciseUpdateManyWithoutCreatedByNestedInput
     logs?: LogUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTrainingSessionsInput = {
@@ -26669,6 +26990,7 @@ export namespace Prisma {
     workoutPlans?: WorkoutPlanUncheckedUpdateManyWithoutUserNestedInput
     exercises?: ExerciseUncheckedUpdateManyWithoutCreatedByNestedInput
     logs?: LogUncheckedUpdateManyWithoutUserNestedInput
+    workoutPlannings?: WorkoutPlanningUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LocationsUpsertWithoutTrainingSessionsInput = {
@@ -26811,6 +27133,14 @@ export namespace Prisma {
     locationId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type WorkoutPlanningCreateManyUserInput = {
+    id?: string
+    date: Date | string
+    includeTime?: boolean
+    locationId?: string | null
+    workoutPlanId: string
   }
 
   export type SessionUpdateWithoutUserInput = {
@@ -27108,6 +27438,30 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type WorkoutPlanningUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    includeTime?: BoolFieldUpdateOperationsInput | boolean
+    location?: LocationsUpdateOneWithoutWorkoutPlanningNestedInput
+    workoutPlan?: WorkoutPlanUpdateOneRequiredWithoutWorkoutPlanningNestedInput
+  }
+
+  export type WorkoutPlanningUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    includeTime?: BoolFieldUpdateOperationsInput | boolean
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    workoutPlanId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type WorkoutPlanningUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    includeTime?: BoolFieldUpdateOperationsInput | boolean
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    workoutPlanId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type LogCreateManySessionInput = {
     id?: string
     exerciseId: string
@@ -27207,6 +27561,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningCreateManyLocationInput = {
     id?: string
+    userId?: string | null
     date: Date | string
     includeTime?: boolean
     workoutPlanId: string
@@ -27283,11 +27638,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     includeTime?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneWithoutWorkoutPlanningsNestedInput
     workoutPlan?: WorkoutPlanUpdateOneRequiredWithoutWorkoutPlanningNestedInput
   }
 
   export type WorkoutPlanningUncheckedUpdateWithoutLocationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     includeTime?: BoolFieldUpdateOperationsInput | boolean
     workoutPlanId?: StringFieldUpdateOperationsInput | string
@@ -27295,6 +27652,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningUncheckedUpdateManyWithoutLocationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     includeTime?: BoolFieldUpdateOperationsInput | boolean
     workoutPlanId?: StringFieldUpdateOperationsInput | string
@@ -27392,6 +27750,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningCreateManyWorkoutPlanInput = {
     id?: string
+    userId?: string | null
     date: Date | string
     includeTime?: boolean
     locationId?: string | null
@@ -27445,11 +27804,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     includeTime?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneWithoutWorkoutPlanningsNestedInput
     location?: LocationsUpdateOneWithoutWorkoutPlanningNestedInput
   }
 
   export type WorkoutPlanningUncheckedUpdateWithoutWorkoutPlanInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     includeTime?: BoolFieldUpdateOperationsInput | boolean
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27457,6 +27818,7 @@ export namespace Prisma {
 
   export type WorkoutPlanningUncheckedUpdateManyWithoutWorkoutPlanInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     includeTime?: BoolFieldUpdateOperationsInput | boolean
     locationId?: NullableStringFieldUpdateOperationsInput | string | null

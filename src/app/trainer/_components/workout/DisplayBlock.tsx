@@ -1,14 +1,14 @@
-import type { WorkoutBlock } from "@prisma/client";
 import { useState } from "react";
 // TODO: Missing component: CreateElement from ~/pages/teacher
 import { api } from "~/trpc/react";
+import type { WorkoutBlockWithRelations } from "~/utils/trpc-types";
 
 export const DisplayBlock = ({
   block,
   children,
   onClick,
 }: {
-  block: WorkoutBlock;
+  block: WorkoutBlockWithRelations;
   children: React.ReactNode;
   onClick?: () => void;
 }) => {

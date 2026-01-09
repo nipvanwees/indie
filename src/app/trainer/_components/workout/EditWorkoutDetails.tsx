@@ -1,5 +1,5 @@
 
-    import { type WorkoutPlan, WorkoutType } from "@prisma/client";
+    import { WorkoutType } from "@prisma/client";
     import { useState } from "react";
     import { api } from "~/trpc/react";
     import toLocalDateTime from "~/utils/toLocalDateTime";
@@ -15,12 +15,13 @@
     import { Button } from "~/app/_components/ui/button";
     import { Select } from "~/app/_components/ui/select";
     import { Checkbox, CheckboxField } from "~/app/_components/ui/checkbox";
+    import type { WorkoutPlanWithRelations } from "~/utils/trpc-types";
 
 export const EditWorkoutDetails = ({
     workout,
     onUpdated
         }: {
-        workout: WorkoutPlan,
+        workout: WorkoutPlanWithRelations,
         onUpdated: () => void;
 
 }) => {

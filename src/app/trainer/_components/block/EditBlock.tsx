@@ -1,4 +1,3 @@
-import type { Exercise, ExercisePlanning, WorkoutBlock } from "@prisma/client";
 import { Heading } from "~/app/_components/ui/heading";
 import { DisplayBlockStyle } from "./DisplayBockStyle";
 import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "~/app/_components/ui/dropdown";
@@ -18,15 +17,10 @@ import { ExerciseListView } from "~/app/_components/exercise/ExerciseListView";
 import { PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { SuggestedExerciseForBlock } from "../exercisePlanning/SuggestedExerciseForBlock";
 import { RearrangeBlock } from "./RearrangeBlock";
-
-type FullExercisePlanning = ExercisePlanning & {
-  exercise: Exercise
-}
+import type { WorkoutBlockWithRelations } from "~/utils/trpc-types";
 
 export const EditBlock = ({block, children}: {
-    block: WorkoutBlock & {
-      exercisePlanning: FullExercisePlanning[]
-    }
+    block: WorkoutBlockWithRelations
     children: React.ReactNode
 }) => {
 

@@ -33,6 +33,7 @@ model User {
   exercises        Exercise[]
   logs             Log[]
   trainingSessions TrainingSession[]
+  workoutPlannings WorkoutPlanning[]
 
   @@unique([email])
   @@map("user")
@@ -130,6 +131,9 @@ enum WorkoutType {
 
 model WorkoutPlanning {
   id String @id @default(cuid())
+
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
 
   date        DateTime
   includeTime Boolean  @default(false)

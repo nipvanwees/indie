@@ -1,6 +1,6 @@
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 
-import { exerciseRouter } from "~/server/api/routers/exercise";
+import { exerciseRouter } from "~/server/api/routers/exerciseRouter";
 import { logRouter } from "~/server/api/routers/log";
 import { trainingSessionRouter } from "~/server/api/routers/trainingSession";
 import { userRouter } from "~/server/api/routers/user";

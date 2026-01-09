@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
-import { BlockPurpose, BlockStyle, WorkoutBlock } from "@prisma/client";
+import type { WorkoutBlock } from "@prisma/client";
+import { BlockPurpose, BlockStyle } from "@prisma/client";
 
 export const blockRouter = createTRPCRouter({
     updateBlock: publicProcedure

@@ -1,4 +1,4 @@
-import { Exercise, ExercisePlanning, type WorkoutBlock } from "@prisma/client";
+import type { Exercise, ExercisePlanning, WorkoutBlock } from "@prisma/client";
 import { Heading } from "~/app/_components/ui/heading";
 import { DisplayBlockStyle } from "./DisplayBockStyle";
 import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "~/app/_components/ui/dropdown";
@@ -14,7 +14,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { Badge } from "~/app/_components/ui/badge";
 import { Text } from "~/app/_components/ui/text";
 import { Divider } from "~/app/_components/ui/divider";
-import { ExerciseListView } from "../exercise/ExerciseListView";
+import { ExerciseListView } from "~/app/_components/exercise/ExerciseListView";
 import { PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { SuggestedExerciseForBlock } from "../exercisePlanning/SuggestedExerciseForBlock";
 import { RearrangeBlock } from "./RearrangeBlock";

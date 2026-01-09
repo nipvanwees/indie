@@ -1,7 +1,6 @@
-import { WorkoutBlock } from "@prisma/client";
-import { on } from "events";
+import type { WorkoutBlock } from "@prisma/client";
 import { CiStickyNote } from "react-icons/ci";
-import useSwipe from "~/hooks/useSwipe";
+import useSwipe from "~/hooks/use-swipe";
 import { hiddenStyles, roundStyles } from "~/utils/blockStyleIncludes";
 
 export const FocusBlock = ({

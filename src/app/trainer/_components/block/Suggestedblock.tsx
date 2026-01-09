@@ -1,6 +1,6 @@
 import { BlockPurpose } from "@prisma/client";
 import { useEffect, useMemo, useState } from "react";
-import useSwipe from "~/hooks/useSwipe";
+import useSwipe from "~/hooks/use-swipe";
 import { api } from "~/trpc/react";
 import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "~/app/_components/ui/dropdown";
 import { Dialog, DialogBody, DialogTitle } from "~/app/_components/ui/dialog";

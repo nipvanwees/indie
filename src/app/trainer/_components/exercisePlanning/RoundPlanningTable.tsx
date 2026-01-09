@@ -1,4 +1,4 @@
-import { Rounds } from "@prisma/client";
+import type { Rounds } from "@prisma/client";
 
 export const RoundPlanningTable = ({
     rounds

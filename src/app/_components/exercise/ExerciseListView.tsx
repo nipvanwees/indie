@@ -1,15 +1,16 @@
-import { Exercise, ExercisePlanning, PlanningAlternative, Rounds, Unilateral, UnilateralExecution, WorkoutBlock } from "@prisma/client";
+import type { Exercise, ExercisePlanning, PlanningAlternative, Rounds, WorkoutBlock } from "@prisma/client";
+import { Unilateral, UnilateralExecution } from "@prisma/client";
 import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from "../ui/dropdown";
 import { BsDiamondHalf, BsThreeDots } from "react-icons/bs";
 import { api } from "~/utils/api";
 import { Dialog, DialogBody, DialogTitle } from "../ui/dialog";
-import { EditExercisePlanning } from "../exercisePlanning/EditExercisePlanning";
+import { EditExercisePlanning } from "~/app/trainer/_components/exercisePlanning/EditExercisePlanning";
 import { useState } from "react";
 import { FaNoteSticky } from "react-icons/fa6";
 import { Badge } from "../ui/badge";
 import { repStyleToUnit } from "~/utils/repStyleToUnit";
-import { RoundPlanningTable } from "../exercisePlanning/RoundPlanningTable";
-import { TempoVisualization } from "../exercisePlanning/TempoVisualization";
+import { RoundPlanningTable } from "~/app/trainer/_components/exercisePlanning/RoundPlanningTable";
+import { TempoVisualization } from "~/app/trainer/_components/exercisePlanning/TempoVisualization";
 
 export const ExerciseListView = ({
     plan,

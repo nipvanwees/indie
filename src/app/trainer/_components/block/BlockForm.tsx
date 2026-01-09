@@ -1,4 +1,5 @@
-import { BlockPurpose, BlockStyle, WorkoutBlock } from "@prisma/client"
+import type { WorkoutBlock } from "@prisma/client";
+import { BlockPurpose, BlockStyle } from "@prisma/client";
 import { SubmitHandler, useForm, UseFormReset } from "react-hook-form"
 import { Field, FieldGroup, Fieldset, Label } from "~/app/_components/ui/fieldset"
 import { Input } from "~/app/_components/ui/input"

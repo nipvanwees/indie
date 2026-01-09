@@ -1,4 +1,4 @@
-import { BlockStyle } from "@prisma/client"
+import type { BlockStyle } from "@prisma/client";
 import { BsArrowRepeat } from "react-icons/bs"
 import { CiRepeat } from "react-icons/ci"
 import { FaAngleDoubleUp } from "react-icons/fa"

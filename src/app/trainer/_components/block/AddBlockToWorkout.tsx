@@ -1,6 +1,6 @@
 import { api } from "~/trpc/react"
 import { BlockForm } from "./BlockForm"
-import { WorkoutPlan } from "@prisma/client"
+import type { WorkoutPlan } from "@prisma/client";
 
 
 export const AddBlockToWorkout = ({workout, onCreated}: {workout: WorkoutPlan, onCreated: () => void}) => {

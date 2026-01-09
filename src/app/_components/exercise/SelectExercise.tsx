@@ -1,5 +1,6 @@
 import { api } from "~/utils/api";
-import { Exercise, Unilateral } from "@prisma/client";
+import type { Exercise } from "@prisma/client";
+import { Unilateral } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { Combobox, ComboboxLabel, ComboboxOption } from "../ui/combobox";
 import { Input } from "../ui/input";

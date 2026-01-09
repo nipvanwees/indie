@@ -1,4 +1,4 @@
-import { WorkoutType } from "@prisma/client";
+import type { WorkoutType } from "@prisma/client";
 import { useState } from "react";
 import { api } from "~/trpc/react";
 import toLocalDateTime from "~/utils/toLocalDateTime";

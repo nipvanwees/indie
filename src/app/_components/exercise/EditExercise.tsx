@@ -1,4 +1,4 @@
-import { Exercise, ExercisePlanning } from "@prisma/client";
+import type { Exercise, ExercisePlanning } from "@prisma/client";
 import { api } from "~/utils/api";
 
 export const EditExercise = ({

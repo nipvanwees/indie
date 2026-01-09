@@ -1,4 +1,4 @@
-import { WorkoutBlock } from "@prisma/client";
+import type { WorkoutBlock } from "@prisma/client";
 import { api } from "~/trpc/react";
 import { BlockForm } from "./BlockForm";
 

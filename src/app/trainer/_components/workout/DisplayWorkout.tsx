@@ -1,4 +1,4 @@
-import { WorkoutPlan } from "@prisma/client";
+import type { WorkoutPlan } from "@prisma/client";
 import Link from "next/link";
 
 export const DisplayWorkout = ({ workout }: { workout: WorkoutPlan }) => {

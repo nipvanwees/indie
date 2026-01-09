@@ -1,7 +1,5 @@
 "use client"
 
-import { api } from "~/trpc/server";
-
 import moment, { type Moment } from "moment";
 import { useEffect, useMemo, useState } from "react";
 import { BsArrowLeft, BsArrowRight, BsCalendarCheckFill } from "react-icons/bs";

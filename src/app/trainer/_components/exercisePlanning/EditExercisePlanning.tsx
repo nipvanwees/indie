@@ -1,4 +1,5 @@
-import { Exercise, ExercisePlanning, PlanningAlternative, Rounds, TimeStyle, Unilateral, UnilateralExecution, WorkoutBlock } from "@prisma/client"
+import type { Exercise, ExercisePlanning, PlanningAlternative, Rounds, WorkoutBlock } from "@prisma/client";
+import { TimeStyle, Unilateral, UnilateralExecution } from "@prisma/client";
 import { Description, Field, FieldGroup, Fieldset, Label } from "~/app/_components/ui/fieldset";
 import { Combobox, ComboboxLabel, ComboboxOption } from "~/app/_components/ui/combobox";
 import { useState } from "react";

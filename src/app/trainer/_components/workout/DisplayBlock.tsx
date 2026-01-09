@@ -1,6 +1,6 @@
-import { WorkoutBlock } from "@prisma/client";
+import type { WorkoutBlock } from "@prisma/client";
 import { useState } from "react";
-import { CreateElement } from "~/pages/teacher";
+// TODO: Missing component: CreateElement from ~/pages/teacher
 import { api } from "~/trpc/react";
 
 export const DisplayBlock = ({

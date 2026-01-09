@@ -13,7 +13,8 @@ import { Switch } from "~/app/_components/ui/switch"
 import { DisplayExerciseName } from "~/app/_components/exercise/DisplayExerciseName"
 import { PreviouslyPlanned } from "./Previouslyplanned"
 import { set } from "zod"
-import { AlternativeType, RepStyle, TimeStyle, Unilateral, UnilateralExecution, type Exercise, type ExercisePlanning, type PlanningAlternative, type Rounds, type WorkoutBlock } from "@prisma/client"
+import type { Exercise, ExercisePlanning, PlanningAlternative, Rounds, WorkoutBlock } from "@prisma/client";
+import { AlternativeType, RepStyle, TimeStyle, Unilateral, UnilateralExecution } from "@prisma/client";
   
 interface ExercisePlanningForm {
     exerciseId: string,
@@ -131,7 +132,7 @@ export const ExercisePlanningForm = ({
     useEffect(() => {
       if(!workoutBlock.specifyRepsPerRound) return
       const roundas = workoutBlock.rounds
-      if(rounds.length > 0) return
+      if(!roundas || rounds.length > 0) return
 
       // make an array of length rounds with default values
       const defaultRounds = Array.from({ length: roundas }, (_, i) => ({

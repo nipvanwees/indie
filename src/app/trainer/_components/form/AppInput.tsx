@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
+
 export const AppInput = ({
   label,
   children,
 }: {
   label?: string;
-  children: JSX.Element;
+  children: ReactNode;
 }) => {
   return (
     <div>

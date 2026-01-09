@@ -1,7 +1,6 @@
-import { Exercise, ExercisePlanning, WorkoutBlock } from "@prisma/client";
-import { s } from "node_modules/framer-motion/dist/types.d-CtuPurYT";
+import type { Exercise, ExercisePlanning, WorkoutBlock } from "@prisma/client";
 import { api } from "~/trpc/react";
-import { ExerciseListView } from "../exercise/ExerciseListView";
+import { ExerciseListView } from "~/app/_components/exercise/ExerciseListView";
 import { Button } from "~/app/_components/ui/button";
 import { Dialog, DialogBody, DialogTitle } from "~/app/_components/ui/dialog";
 import { useState } from "react";
